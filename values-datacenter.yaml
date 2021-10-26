@@ -57,6 +57,12 @@ site:
     namespace: openshift-storage
     project: datacenter
     path: charts/datacenter/cephobjectstore
+
+  - name: xraylab
+    namespace: xraylab-0001
+    project: datacenter
+    path: charts/datacenter/xraylab
+
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #

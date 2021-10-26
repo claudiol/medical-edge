@@ -4,3 +4,17 @@ global:
     useCSV: False
     syncPolicy: Manual
     installPlanApproval: Automatic
+
+  # XRay configuration for service-point config map
+  # Found in charts/datacenter/xraylab/templates
+  xraylab:
+    namespace: "xraylab-0001"
+    xraydbhost: "host"
+    xraydb: "xraylabdb"
+    ocs-storage:
+      serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc"
+      externalUrl: "https://rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
+    s3:
+      bucketSource: "https://s3.us-east-1.amazonaws.com/com.redhat.csds.guimou.xray-source"
+      bucketBaseName: "xraylab-0001"
+

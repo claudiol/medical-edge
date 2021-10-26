@@ -1,0 +1,13 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: kafdrop
+spec:
+  subdomain: ""
+  to:
+    kind: Service
+    name: kafdrop
+    weight: 100
+  port:
+    targetPort: 9000
+  wildcardPolicy: None
