@@ -53,7 +53,7 @@ site:
     project: datacenter
     path: charts/datacenter/opendatahub
 
-  - name: CephObjectStore
+  - name: cephobjectstore
     namespace: openshift-storage
     project: datacenter
     path: charts/datacenter/cephobjectstore
