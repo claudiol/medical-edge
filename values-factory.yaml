@@ -1,7 +1,6 @@
 global:
-  valuesDirectoryURL: https://github.com/dagger-refuse-cool/sample/raw/main/
   options:
-    useCSV: True
+    useCSV: False
     syncPolicy: Automatic
     installPlanApproval: Automatic
 

@@ -1,7 +1,6 @@
 global:
-  valuesDirectoryURL: https://github.com/dagger-refuse-cool/edge-gitops/raw/main/
   options:
-    useCSV: True
+    useCSV: False
     syncPolicy: Automatic
     installPlanApproval: Automatic
 
@@ -14,13 +13,31 @@ site:
 
   namespaces:
   - open-cluster-management
+  - openshift-serverless
+  - opendatahub
+  - openshift-storage
+  - xraylab-0001
 
   subscriptions:
   - name: advanced-cluster-management
     namespace: open-cluster-management
-    source: redhat-operators
     channel: release-2.3
-    csv: v2.3.2
+    csv: advanced-cluster-management.v2.3.2
+
+  - name: amq-streams
+    namespace: xraylab-001 
+    channel: amq-streams-1.7.x
+    csv: amqstreams.v1.7.1
+
+  - name: ocs-operator
+    namespace: openshift-storage
+    channel: stable-4.8
+    csv: ocs-operator.v4.8.3
+
+  - name: serverless-operator
+    namespace: openshift-serverless
+    channel: stable
+    csv: serverless-operator.v1.7.2
 
   projects:
   - datacenter
@@ -31,6 +48,15 @@ site:
     project: datacenter
     path: applications/acm
 
+  - name: odh
+    namespace: opendatahub
+    project: datacenter
+    path: charts/datacenter/opendatahub
+
+  - name: CephObjectStore
+    namespace: openshift-storage
+    project: datacenter
+    path: charts/datacenter/cephobjectstore
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #
