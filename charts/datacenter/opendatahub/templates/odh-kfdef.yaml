@@ -4,6 +4,7 @@ metadata:
   annotations:
     kfctl.kubeflow.io/force-delete: 'false'
   name: opendatahub
+  namespace: openshift-operators
 spec:
   applications:
     - kustomizeConfig:
