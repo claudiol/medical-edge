@@ -15,7 +15,6 @@ spec:
     replicated:
       size: 3
   gateway:
-    allNodes: false
     instances: 1
     placement:
       nodeAffinity:
