@@ -26,7 +26,7 @@ site:
     csv: advanced-cluster-management.v2.3.2
 
   - name: amq-streams
-    namespace: xraylab-001 
+    namespace: xraylab-0001 
     channel: amq-streams-1.7.x
     csv: amqstreams.v1.7.1
 
