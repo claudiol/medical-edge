@@ -2,6 +2,7 @@ apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   name: risk-assessment
+  namespace: "{{ .Values.global.xraylab.namespace }}"
 spec:
   template:
     metadata:

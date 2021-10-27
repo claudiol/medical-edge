@@ -2,6 +2,7 @@ apiVersion: sources.knative.dev/v1beta1
 kind: KafkaSource
 metadata:
   name: xray-images
+  namespace: "{{ .Values.global.xraylab.namespace }}"
 spec:
   consumerGroup: risk-assessment
   bootstrapServers:

@@ -2,6 +2,7 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   name: kafdrop
+  namespace: "{{ .Values.global.xraylab.namespace }}"
 spec:
   selector:
     app: kafdrop

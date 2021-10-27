@@ -15,6 +15,6 @@ global:
       serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc"
       externalUrl: "https://rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
     s3:
-      bucketSource: "https://s3.us-east-1.amazonaws.com/com.redhat.csds.guimou.xray-source"
+      bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.xray-source"
       bucketBaseName: "xraylab-0001"
 
