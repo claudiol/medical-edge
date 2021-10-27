@@ -4,5 +4,5 @@ metadata:
   name: service-point
   namespace: "{{ .Values.global.xraylab.namespace }}"
 data:
-  url: "{{ .Values.global.ocs-storage.serviceUrl }}" # No trailing /
-  url-external: "{{ .Values.global.ocs-storage.externalUrl }}" # No trailing /
+  url: "{{ .Values.global.ocsstorage.serviceUrl }}" # No trailing /
+  url-external: "{{ .Values.global.ocsstorage.externalUrl }}" # No trailing /
