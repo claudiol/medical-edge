@@ -18,6 +18,7 @@ site:
   - openshift-storage
   - xraylab-0001
   - knative-serving
+  - knative-eventing
   - staging
 
   operatorgroupExcludes:
@@ -45,7 +46,6 @@ site:
     csv: ocs-operator.v4.8.3
 
   - name: serverless-operator
-    namespace: knative-serving
     channel: stable
     csv: serverless-operator.v1.7.2
 
