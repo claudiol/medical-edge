@@ -18,7 +18,10 @@ site:
   - openshift-storage
   - xraylab-0001
   - staging
-  
+
+  operatorgroupExcludes:
+    - operatorhub
+
   subscriptions:
   - name: advanced-cluster-management
     namespace: open-cluster-management
