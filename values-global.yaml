@@ -18,3 +18,7 @@ global:
       bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.xray-source"
       bucketBaseName: "xraylab-0001"
 
+  datacenter:
+    clustername: claudiol-dc
+    domain: blueprints.rhecoeng.com
+
