@@ -79,10 +79,21 @@ site:
     project: datacenter
     path: charts/datacenter/xraylab
 
-  - name:  xraylab-grafana
+  - name:  grafana
     namespace: xraylab-0001
     project: datacenter
     path: charts/datacenter/grafana
+
+  - name:  imageserver
+    namespace: xraylab-0001
+    project: datacenter
+    path: charts/datacenter/image-server
+
+  - name:  imagegenerator
+    namespace: xraylab-0001
+    project: datacenter
+    path: charts/datacenter/image-generator
+    
     
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
