@@ -79,6 +79,15 @@ site:
     project: datacenter
     path: charts/datacenter/xraylab
 
+  - name: xraydb
+    namespace: xraylab-001
+    project: datacenter
+    path: charts/datacenter/xraydb
+
+  - name: kafka
+    namespace: xraylab-001
+    project: datacenter
+    path: charts/datacenter/kafka
 #
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #
