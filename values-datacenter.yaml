@@ -23,7 +23,7 @@ site:
 
   operatorgroupExcludes:
     - operatorhub
-    - xraylab-0001
+      #- xraylab-0001
 
   subscriptions:
   - name: advanced-cluster-management
