@@ -74,10 +74,10 @@ site:
     project: datacenter
     path: charts/datacenter/cephobjectstore
 
-  - name: xraylab
-    namespace: xraylab-0001
-    project: datacenter
-    path: charts/datacenter/xraylab
+      #  - name: xraylab
+      #namespace: xraylab-0001
+      #project: datacenter
+      #path: charts/datacenter/xraylab
 
   - name:  grafana
     namespace: xraylab-0001
