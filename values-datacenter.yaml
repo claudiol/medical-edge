@@ -96,12 +96,12 @@ site:
     path: charts/datacenter/xraylab/image-generator
     
   - name: xraydb
-    namespace: xraylab-001
+    namespace: xraylab-0001
     project: datacenter
     path: charts/datacenter/xraylab/xraydb
 
   - name: kafka
-    namespace: xraylab-001
+    namespace: xraylab-0001
     project: datacenter
     path: charts/datacenter/xraylab/kafka
 #
