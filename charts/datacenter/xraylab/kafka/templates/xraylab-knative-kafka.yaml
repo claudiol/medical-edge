@@ -4,5 +4,8 @@ metadata:
   name: knative-kafka
   namespace: knative-eventing
 spec:
+  channel:
+    enabled: true
+    bootstrapServers: xray-cluster-kafka-bootstrap:9092
   source:
     enabled: true
