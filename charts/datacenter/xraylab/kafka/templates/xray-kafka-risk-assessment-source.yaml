@@ -2,7 +2,6 @@ apiVersion: sources.knative.dev/v1beta1
 kind: KafkaSource
 metadata:
   name: xray-images
-  namespace: knative-eventing
 spec:
   consumerGroup: risk-assessment
   bootstrapServers:
