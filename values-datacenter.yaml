@@ -38,6 +38,7 @@ site:
 
   - name: grafana-operator
     namespace: xraylab-0001 
+    channel: v4
     source: community-operators
     csv: grafana-operator.v3.10.3
 
