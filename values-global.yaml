@@ -19,6 +19,6 @@ global:
       bucketBaseName: "xraylab-0001"
 
   datacenter:
-    clustername: claudiol-dc
+    clustername: claudiol-xray
     domain: blueprints.rhecoeng.com
 
