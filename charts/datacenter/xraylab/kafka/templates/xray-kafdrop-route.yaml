@@ -4,7 +4,7 @@ metadata:
   name: kafdrop
   namespace: "{{ .Values.global.xraylab.namespace }}"
 spec:
-  subdomain: ""
+  subdomain: "xray-xraylab-0001-kafdrop"
   to:
     kind: Service
     name: kafdrop
