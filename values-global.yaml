@@ -9,7 +9,7 @@ global:
   # Found in charts/datacenter/xraylab/templates
   xraylab:
     namespace: "xraylab-0001"
-    xraydbhost: "host"
+    xraydbhost: "127.0.0.1"
     xraydb: "xraylabdb"
     ocsstorage:
       serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc"
