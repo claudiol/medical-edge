@@ -61,11 +61,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-<<<<<<< HEAD
                   name: db-secret
-=======
-                  name: db-root-secret
->>>>>>> fb6fb9c1dd86cc4c5f266dd9055182733b943c26
                   key: database-root-password
             - name: MYSQL_PASSWORD
               valueFrom:
@@ -80,16 +76,12 @@ spec:
             - name: MYSQL_MASTER_USER
               valueFrom:
                 secretKeyRef:
-<<<<<<< HEAD
                   name: db-secret
-=======
-                  name: db-master-user
->>>>>>> fb6fb9c1dd86cc4c5f266dd9055182733b943c26
                   key: database-master-user
             - name: MYSQL_MASTER_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-master-password
+                  name: db-secret
                   key: database-master-password
           ports:
             - containerPort: 3306
