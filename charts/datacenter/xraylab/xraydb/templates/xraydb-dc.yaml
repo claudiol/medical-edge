@@ -58,6 +58,11 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: database-user
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-root-secret
+                  key: database-root-password
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -68,6 +73,16 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: database-db
+            - name: MYSQL_MASTER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-master-user
+                  key: database-master-user
+            - name: MYSQL_MASTER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-master-password
+                  key: database-master-password
           ports:
             - containerPort: 3306
               protocol: TCP
