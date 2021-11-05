@@ -75,13 +75,23 @@ spec:
           volumeMounts:
             - name: xraylabdb-data
               mountPath: /var/lib/mysql/data
+            - name: xraylabdb-data
+              mountPath: /opt/app-root/src/mysql-init/90-init-data.sh
+              subPath: 90-init-database.sh
+            - name: xraylabdb-data
+              mountPath: /opt/app-root/src/mysql-data/schema.sql
+              subPath: schema.sql
           terminationMessagePolicy: File
           image: registry.redhat.io/rhel8/mariadb-103:latest
       volumes:
-        - name: xraylabdb-data
-          persistentVolumeClaim:
-            claimName: xraylabdb
-            storageClassName:
+      - configMap:
+          name: xraydbinit
+        name: xraydbinit
+
+      - name: xraylabdb-data
+        persistentVolumeClaim:
+          claimName: xraylabdb
+          storageClassName:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst

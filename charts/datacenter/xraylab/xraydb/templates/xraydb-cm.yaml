@@ -1,0 +1,46 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: xraydbinit
+  namespace: {{ .Values.global.xraylab.namespace }}
+data:
+  90-init-database.sh: |
+    init_database() {
+        local thisdir
+        local init_data_file
+        thisdir=$(dirname ${BASH_SOURCE[0]})
+ 
+        init_data_file=$(readlink -f ${thisdir}/../mysql-data/schema.sql)
+        log_info "Initializing the database schema from file ${init_data_file}..."
+        mysql $mysql_flags ${MYSQL_DATABASE} < ${init_data_file}
+ 
+    }
+ 
+    if ! [ -v MYSQL_RUNNING_AS_SLAVE ] && $MYSQL_DATADIR_FIRST_INIT ; then
+        init_database
+    fi
+
+  schema.sql: >-
+    USE xraylabdb;
+    DROP TABLE IF EXISTS `images_uploaded`;
+
+    --
+    -- Table structure for table `images_uploaded`
+    --
+    CREATE TABLE images_uploaded(time TIMESTAMP, name VARCHAR(255));
+
+    DROP TABLE IF EXISTS `images_processed`;
+
+    --
+    -- Table structure for table `images_processed`
+    --
+    CREATE TABLE images_processed(time TIMESTAMP, name VARCHAR(255), model VARCHAR(10), label VARCHAR(20));
+
+    DROP TABLE IF EXISTS `images_anonymized`;
+
+    --
+    -- Table structure for table `images_anonymized`
+    --
+
+    CREATE TABLE images_anonymized(time TIMESTAMP, name VARCHAR(255));
+
