@@ -90,8 +90,8 @@ spec:
           image: registry.redhat.io/rhel8/mariadb-103:latest
       volumes:
         - configMap:
-          name: xraydb-init
-        name: xraydb-init
+          name: xraydbinit
+        name: xraydbinit
 
       - name: xraylabdb-data
         persistentVolumeClaim:

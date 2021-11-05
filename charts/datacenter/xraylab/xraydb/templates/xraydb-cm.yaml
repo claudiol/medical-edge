@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: xraydb-init
+  name: xraydbinit
   namespace: {{ .Values.global.xraylab.namespace }}
 data:
   90-init-database.sh: |
