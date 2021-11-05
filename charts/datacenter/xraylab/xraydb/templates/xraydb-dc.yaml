@@ -89,7 +89,7 @@ spec:
           terminationMessagePolicy: File
           image: registry.redhat.io/rhel8/mariadb-103:latest
       volumes:
-        - configMap:
+      - configMap:
           name: xraydbinit
         name: xraydbinit
 
