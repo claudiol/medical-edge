@@ -90,10 +90,10 @@ spec:
           volumeMounts:
             - name: xraylabdb-data
               mountPath: /var/lib/mysql/data
-            - name: xraylabdb-data
+            - name: xraydbinit
               mountPath: /opt/app-root/src/mysql-init/90-init-data.sh
               subPath: 90-init-database.sh
-            - name: xraylabdb-data
+            - name: xraydbinit
               mountPath: /opt/app-root/src/mysql-data/schema.sql
               subPath: schema.sql
           terminationMessagePolicy: File

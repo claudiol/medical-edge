@@ -12,7 +12,7 @@ data:
  
         init_data_file=$(readlink -f ${thisdir}/../mysql-data/schema.sql)
         log_info "Initializing the database schema from file ${init_data_file}..."
-        mysql $mysql_flags ${MYSQL_DATABASE} < ${init_data_file}
+        mysql $mysql_flags < ${init_data_file}
  
     }
  
@@ -21,7 +21,10 @@ data:
     fi
 
   schema.sql: >-
+    DROP DATABASE IF EXISTS xraylabdb;
+    CREATE DATABASE xraylabdb;
     USE xraylabdb;
+
     DROP TABLE IF EXISTS `images_uploaded`;
 
     --
@@ -44,3 +47,8 @@ data:
 
     CREATE TABLE images_anonymized(time TIMESTAMP, name VARCHAR(255));
 
+    --
+    -- Now we grant admin priviliges
+    --
+    GRANT ALL PRIVILEGES ON xraylabdb.* TO 'admin'@'%';
+    FLUSH PRIVILEGES;
