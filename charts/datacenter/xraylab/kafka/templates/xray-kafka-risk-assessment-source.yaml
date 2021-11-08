@@ -2,6 +2,8 @@ apiVersion: sources.knative.dev/v1beta1
 kind: KafkaSource
 metadata:
   name: xray-images
+  annotiations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   consumerGroup: risk-assessment
   bootstrapServers:
