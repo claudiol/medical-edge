@@ -13,12 +13,12 @@ global:
     xraydb: "xraylabdb"
     ocsstorage:
       serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc"
-      externalUrl: "https://rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
+      externalUrl: "https://rgw-openshift-storage.apps.jrickard-xray.blueprints.rhecoeng.com"
     s3:
       bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.xray-source"
       bucketBaseName: "xraylab-0001"
 
   datacenter:
-    clustername: claudiol-xray
+    clustername: jrickard-xray
     domain: blueprints.rhecoeng.com
 
