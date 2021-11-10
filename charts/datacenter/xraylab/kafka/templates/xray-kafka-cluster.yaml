@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: xray-cluster
+  name: "{{ .Values.global.xraylab.kafka.cluster.name ]}"
   namespace: "{{ .Values.global.xraylab.namespace }}"
 spec:
   entityOperator:
@@ -29,6 +29,6 @@ spec:
       type: ephemeral
     version: 2.7.0
   zookeeper:
-    replicas: 3
+    replicas: "{{ .Values.global.xraylab.kafka.cluster.replicas }}"
     storage:
       type: ephemeral

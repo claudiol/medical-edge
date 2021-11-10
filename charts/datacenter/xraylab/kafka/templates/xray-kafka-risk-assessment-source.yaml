@@ -1,17 +1,15 @@
 apiVersion: sources.knative.dev/v1beta1
 kind: KafkaSource
 metadata:
-  name: xray-images
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
+  name: "{{ .Values.global.xraylab.knative.kafkaSource.name }}"
 spec:
-  consumerGroup: risk-assessment
+  consumerGroup: "{{ .Values.global.xraylab.knative.kafkaSource.consumerGroup }}"
   bootstrapServers:
-    - xray-cluster-kafka-bootstrap:9092
+    - "{{ .Values.global.xraylab.knative.kafkaSource.bootstrapserver }}"
   topics:
-    - xray-images
+    - "{{ .Values.global.xraylab.knative.kafkaSource.name }}"
   sink:
     ref:
       apiVersion: serving.knative.dev/v1
       kind: Service
-      name: risk-assessment
+      name: "{{ .Values.global.xraylab.knative.kafkaSource.consumerGroup }}"

@@ -1,14 +1,14 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: kafdrop
+  name: "{{ .Values.global.xraylab.kafka.app }}"
   namespace: "{{ .Values.global.xraylab.namespace }}"
 spec:
-  subdomain: "xray-xraylab-0001-kafdrop"
+  subdomain: "{{ .Values.global.xraylab.kafka.route.subdomain }}"
   to:
     kind: Service
-    name: kafdrop
-    weight: 100
+    name: "{{ .Values.global.xraylab.kafka.app }}"
+    weight: "{{ .Values.global.xraylab.kafka.route.weight }}"
   port:
-    targetPort: 9000
-  wildcardPolicy: None
+    targetPort: "{{ .Values.global.xraylab.kafka.service.targetPort }}"
+  wildcardPolicy: "{{ .Values.global.xraylab.kafka.route.wildcardPolicy }}"

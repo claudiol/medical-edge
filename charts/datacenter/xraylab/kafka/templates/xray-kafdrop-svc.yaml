@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: kafdrop
+  name: "{{ .Values.global.xraylab.kafka.app }}"
   namespace: "{{ .Values.global.xraylab.namespace }}"
 spec:
   selector:
-    app: kafdrop
+    app: "{{ .Values.global.xraylab.kafka.app }}"
   ports:
-    - protocol: TCP
-      port: 9000
-      targetPort: 9000
+    - protocol: "{{ .Values.global.xraylab.kafka.service.protocol }}"
+      port: "{{ .Values.global.xraylab.kafka.service.port }}"
+      targetPort: "{{ .Values.global.xraylab.kafka.service.targetPort }}"
