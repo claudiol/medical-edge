@@ -1,5 +1,0 @@
-apiVersion: operator.knative.dev/v1alpha1
-kind: {{ .Values.global.xraylab.serverless.kind }}
-metadata:
-  name: {{ .Values.global.xraylab.serverless.name }}
-  namespace: {{ .Values.global.xraylab.serverless.namespace }}
