@@ -1,0 +1,15 @@
+{{- range .Values.global.xraylab.knative.operators }}
+apiVersion: operator.knative.dev/v1alpha1
+kind: {{ .kind }}
+metadata:
+  name: {{ .name }}
+  namespace: {{ .namespace }}
+{{- end }}
+{{- if eq .Values.global.xraylab.knative.name "knative-kafka" }}
+spec:
+  channel:
+    enabled: true
+    bootstrapServers: {{ .Values.global.xraylab.knative.kafkaSource.bootstrapserver }}
+  source:
+    enabled: true
+{{- end }}
