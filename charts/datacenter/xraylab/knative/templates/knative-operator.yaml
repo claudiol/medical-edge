@@ -3,7 +3,7 @@
 apiVersion: operator.serverless.openshift.io/v1alpha1
 {{- else }}
 apiVersion: operator.knative.dev/v1alpha1
-{{-end }}
+{{- end }}
 kind: {{ .kind }}
 metadata:
   name: {{ .name }}
