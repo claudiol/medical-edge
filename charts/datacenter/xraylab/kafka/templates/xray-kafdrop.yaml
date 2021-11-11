@@ -1,26 +1,24 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  name: kafdrop
-  namespace: "{{ .Values.global.xraylab.namespace }}"
+  name: {{ .Values.global.xraylab.kafka.app }}
+  namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   selector:
-    app: kafdrop
-  replicas: 1
+    app: {{ .Values.global.xraylab.kafka.app }}
+  replicas: {{ .Values.global.xraylab.kafka.deployment.replicas }}
   template:
     metadata:
       labels:
-        app: kafdrop
+        app: {{ .Values.global.xraylab.kafka.app }}
     spec:
       containers:
-        - name: kafdrop
-          image: obsidiandynamics/kafdrop:latest
+        - name: {{ .Values.global.xraylab.kafka.app }}
+          image: {{ .Values.global.xraylab.kafka.deployment.image }}
           ports:
-            - containerPort: 9000
+            - containerPort: {{ .Values.global.xraylab.kafka.service.port }}
           env:
-            - name: KAFKA_BROKERCONNECT
-              value: "xray-cluster-kafka-bootstrap:9092"
-            - name: JVM_OPTS
-              value: "-Xms32M -Xmx64M"
-            - name: SERVER_SERVLET_CONTEXTPATH
-              value: "/"
+          {{- range .Values.global.xraylab.kafka.deployment.env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end }}
