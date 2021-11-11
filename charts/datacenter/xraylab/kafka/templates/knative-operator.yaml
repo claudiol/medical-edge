@@ -4,4 +4,12 @@ kind: {{ .kind }}
 metadata:
   name: {{ .name }}
   namespace: {{ .namespace }}
+{{- if eq .kind "KnativeKafka" }}
+spec:
+  channel:
+    enabled: true
+    bootstrapServers: {{ $.Values.global.xraylab.knative.kafkaSource.bootstrapserver }}
+  source:
+    enabled: true
+{{- end }}
 {{- end }}
