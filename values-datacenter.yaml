@@ -75,10 +75,20 @@ site:
     project: datacenter
     path: charts/datacenter/cephobjectstore
 
-      #  - name: xraylab
-      #namespace: xraylab-0001
-      #project: datacenter
-      #path: charts/datacenter/xraylab
+  - name: knative
+    namespace: xraylab-0001
+    project: datacenter
+    path: charts/datacenter/xraylab/knative
+
+  - name: kafka
+    namespace: xraylab-0001
+    project: datacenter
+    path: charts/datacenter/xraylab/kafka
+
+  - name: kafkasource
+    namespace: xraylab-0001
+    project: datacenter
+    path: charts/datacenter/xraylab/kafkasource
 
   - name:  grafana
     namespace: xraylab-0001
