@@ -23,6 +23,9 @@ site:
 
   operatorgroupExcludes:
     - operatorhub
+    - knative-eventing
+    - knative-serving
+    - knative-kafka
       #- xraylab-0001
 
   subscriptions:
