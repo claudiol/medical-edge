@@ -43,7 +43,7 @@ global:
         port: 9000
         targetPort: 9000
       route:
-        subdomain: "xraylab-0001-kafdrop"
+        subdomain: "" #"xraylab-0001-kafdrop"
         weight: 100
         wildcardPolicy: "None"
       deployment:
