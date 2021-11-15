@@ -8,7 +8,7 @@ global:
   # XRay configuration for service-point config map
   # Found in charts/datacenter/xraylab/templates
   datacenter:
-    clustername: claudiol-xray
+    clustername: jrickard-xray
     domain: blueprints.rhecoeng.com
 
   xraylab:
