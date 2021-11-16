@@ -20,12 +20,14 @@ site:
   - knative-serving
   - knative-eventing
   - staging
+  - vault
 
   operatorgroupExcludes:
     - operatorhub
     - knative-eventing
     - knative-serving
     - knative-kafka
+    - vault-config-operator
       #- xraylab-0001
 
   subscriptions:
@@ -58,6 +60,9 @@ site:
     source: community-operators
     csv: opendatahub-operator.v1.1.0
 
+  - name: vault-config-operator
+    source: community-operators
+    csv:  vault-config-operator.v0.1.0
 
   projects:
   - datacenter
@@ -113,11 +118,6 @@ site:
     project: datacenter
     path: charts/datacenter/xraylab/xraydb
 
-#  - name: kafka
-#    namespace: xraylab-0001
-#    project: datacenter
-#    path: charts/datacenter/xraylab/kafka
-#
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate
 #
 #  - name: pipelines
