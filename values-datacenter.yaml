@@ -20,6 +20,7 @@ site:
   - knative-serving
   - knative-eventing
   - staging
+  - vault
 
   operatorgroupExcludes:
     - operatorhub
@@ -57,6 +58,9 @@ site:
     source: community-operators
     csv: opendatahub-operator.v1.1.0
 
+  - name: vault-config-operator
+    source: community-operators
+    csv:  vault-config-operator.v0.1.0
 
   projects:
   - datacenter
