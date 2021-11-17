@@ -18,6 +18,34 @@ global:
     ocsstorage:
       serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc"
       externalUrl: "https://rgw-openshift-storage.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}"
+    ocs:
+      namespace: openshift-storage
+      mon:
+        requests:
+          cpu: 1
+          memory: 2Gi
+      mds:
+        requests:
+          cpu: 3
+          memory: 8Gi
+      mgr:
+        requests:
+          cpu: 1
+          memory: 3Gi
+      noobaacore:
+        requests:
+          cpu: 1
+          memory: 4Gi
+      noobaadb:
+        requests:
+          cpu: 1
+          memory: 4Gi
+      osd:
+        requests:
+          cpu: 2
+          memory: 5Gi
+          storage: 2Ti
+      storageClassName: gp2
     knative:
       operators:
         - kind: "KnativeServing"
