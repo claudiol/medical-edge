@@ -20,6 +20,7 @@ site:
   - knative-serving
   - knative-eventing
   - staging
+  - vault
 
   operatorgroupExcludes:
     - operatorhub
