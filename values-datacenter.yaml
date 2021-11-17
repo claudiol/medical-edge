@@ -120,6 +120,7 @@ site:
     path: vault
     repoURL: https://helm.releases.hashicorp.com
     targetRevision: 0.17.1
+    chart: "true"
     overrides:
     - name: build.enabled
       value: "false"
