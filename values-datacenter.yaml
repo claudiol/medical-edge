@@ -123,12 +123,16 @@ site:
     overrides:
     - name: build.enabled
       value: "false"
+      forceString: true
     - name: deploy.route.tls.enabled
       value: "true"
+      forceString: true
     - name: global.openshift
       value: "true"
+      forceString: true
     - name: server.dev.enabled
       value: "true"
+      forceString: true
 
 #  - name: kafka
 #    namespace: xraylab-0001
