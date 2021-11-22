@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: "clusterquota-xray-pipeline-lab-user-{{ .Values.xraylab.userName }}"
+  namespace: "{{ .Values.xraylab.userName }}"
+spec:
+  {{ .Values.xraylab.pipeline.userQuota | toPrettyJson }}
