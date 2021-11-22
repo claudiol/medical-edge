@@ -8,11 +8,11 @@ global:
   # XRay configuration for service-point config map
   # Found in charts/datacenter/xraylab/templates
   datacenter:
-    clustername: jrickard-xray
+    clustername: claudiol-xray
     domain: blueprints.rhecoeng.com
 
   xraylab:
-    namespace: "xraylab-0001"
+    namespace: "xraylab-1"
     xraydbhost: "127.0.0.1"
     xraydb: "xraylabdb"
     ocsstorage:
@@ -71,7 +71,7 @@ global:
         port: 9000
         targetPort: 9000
       route:
-        subdomain: "" #"xraylab-0001-kafdrop"
+        subdomain: "" #"xraylab-1-kafdrop"
         weight: 100
         wildcardPolicy: "None"
       deployment:
@@ -86,5 +86,5 @@ global:
             value: "/"
     s3:
       bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.xray-source"
-      bucketBaseName: "xraylab-0001"
+      bucketBaseName: "xraylab-1"
 
