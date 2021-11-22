@@ -167,7 +167,7 @@ spec:
       "uid": "lastimagesdashboard",
       "version": 6
     }
-  name: xraylab-images-dashboard.json
+  #name: xraylab-images-dashboard.json
   plugins:
     - name: ryantxu-ajax-panel
       version: 0.0.7-dev
