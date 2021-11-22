@@ -1,7 +1,7 @@
 apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
-  name: "{{ .Values.xraylab.userName }}"
+  name: "{{ .Values.xraylab.user }}"
   annotations:
     openshift.io/description: ""
-    openshift.io/display-name: "{{ .Values.xraylab.userName }}"
+    openshift.io/display-name: "{{ .Values.xraylab.user }}"
