@@ -171,10 +171,10 @@ spec:
   plugins:
     - name: ryantxu-ajax-panel
       version: 0.0.7-dev
-parameters:
-  - description: Route to the image server
-    name: {{ .Values.xraylab.imageServer }} #HELM
-  - description: Bucket base name
-    name: {{ .Values.xraylab.bucketBaseName }} #HELM
-labels:
-  grafana: dashboard
+#parameters:
+#  - description: Route to the image server
+#    name: {{ .Values.xraylab.imageServer }} #HELM
+#  - description: Bucket base name
+#    name: {{ .Values.xraylab.bucketBaseName }} #HELM
+#labels:
+#  grafana: dashboard
