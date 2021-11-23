@@ -17,7 +17,7 @@ items:
       replicated:
         size: 3
     gateway:
-      allNodes: false
+      #allNodes: false
       instances: 2
       placement:
         nodeAffinity:
