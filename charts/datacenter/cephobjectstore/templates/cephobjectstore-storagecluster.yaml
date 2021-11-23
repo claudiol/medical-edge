@@ -1,7 +1,7 @@
 apiVersion: ocs.openshift.io/v1
 kind: StorageCluster
 metadata:
-  namespace: openshift_storage
+  namespace: openshift-storage
   name: ocs-storagecluster
 spec:
   manageNodes: false
