@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: bucket-init
-  namespace: '{{ namespace }}'
+  namespace: '{{ .Values.global.xraylab.namespace }}'
 data:
   bucket-init.py: |
     import os
@@ -11,8 +11,8 @@ data:
     import botocore
     import argparse
 
-    namespace = '{{ namespace }}'
-    bucket_base_name = '{{ namespace }}'
+    namespace = ''{{ .Values.global.xraylab.namespace }}'
+    bucket_base_name = '{{ .Values.global.xraylab.namespace }}'
     aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
     aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
     endpoint_url = 'http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local'
