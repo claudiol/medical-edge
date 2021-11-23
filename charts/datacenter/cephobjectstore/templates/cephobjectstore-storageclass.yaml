@@ -2,6 +2,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: ocs-storagecluster-ceph-rgw
+  namespace: openshift-storage
   annotations:
     description: Provides Object Bucket Claims (OBCs) using the RGW
 provisioner: openshift-storage.ceph.rook.io/bucket
