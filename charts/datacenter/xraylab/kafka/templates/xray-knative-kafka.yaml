@@ -5,7 +5,7 @@ metadata:
   namespace: knative-eventing
 spec:
   channel:
-    bootstrapServers: bootstrap-xraylab-0001-xray-cluster.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}
+    bootstrapServers: bootstrap-xraylab-1-xray-cluster.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}
     enabled: false
   source:
     enabled: true
