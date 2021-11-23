@@ -11,7 +11,7 @@ data:
     import botocore
     import argparse
 
-    namespace = ''{{ .Values.global.xraylab.namespace }}'
+    namespace = '{{ .Values.global.xraylab.namespace }}'
     bucket_base_name = '{{ .Values.global.xraylab.namespace }}'
     aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
     aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']

@@ -2,6 +2,7 @@ apiVersion: integreatly.org/v1alpha1
 kind: GrafanaDataSource
 metadata:
   name: mysql-grafana-datasource
+  namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   datasources:
     - type: mysql

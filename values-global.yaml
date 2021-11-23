@@ -17,7 +17,7 @@ global:
     xraydb: "xraylabdb"
     ocsstorage:
       serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc"
-      externalUrl: "https://rgw-openshift-storage.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}"
+      externalUrl: "https://rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
     ocs:
       namespace: openshift-storage
       mon:
