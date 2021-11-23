@@ -362,7 +362,7 @@ spec:
           "timeShift": null,
           "title": "Last uploaded image",
           "type": "ryantxu-ajax-panel",
-          "url": "${image_server_url}/last_image_small/${bucket_base_name}",
+          "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}",
           "withCredentials": false
         },
         {
@@ -486,7 +486,255 @@ spec:
           "timeShift": null,
           "title": "Last processed image",
           "type": "ryantxu-ajax-panel",
-          "url": "${image_server_url}/last_image_small/${bucket_base_name}-processed",
+          "url": "",
+          "withCredentials": false
+        },
+        {
+          "columns": [],
+          "datasource": "MySQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "100%",
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 12,
+            "y": 7
+          },
+          "id": 19,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "styles": [
+            {
+              "alias": "Time",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "Metric",
+              "thresholds": [],
+              "type": "hidden",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT time,name FROM images_processed WHERE name != '' ORDER by time DESC LIMIT 10",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Last 10 processed images",
+          "transform": "timeseries_to_rows",
+          "type": "table"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 4,
+            "x": 20,
+            "y": 7
+          },
+          "header_js": "{}",
+          "id": 25,
+          "links": [
+            {
+              "title": "Last Images",
+              "url": "/d/lastimagesdashboard/last-images"
+            }
+          ],
+          "method": "iframe",
+          "mode": "html",
+          "params_js": "{\n __now:Date.now(),\n}",
+          "request": "http",
+          "responseType": "text",
+          "showErrors": true,
+          "showTime": true,
+          "showTimeFormat": "LTS",
+          "showTimePrefix": null,
+          "showTimeValue": "request",
+          "skipSameURL": false,
+          "templateResponse": true,
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Last processed image",
+          "type": "ryantxu-ajax-panel",
+          "url": "",
+          "withCredentials": false
+        },
+        {
+          "columns": [],
+          "datasource": "MySQL",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "100%",
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 12,
+            "y": 7
+          },
+          "id": 19,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "styles": [
+            {
+              "alias": "Time",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "Metric",
+              "thresholds": [],
+              "type": "hidden",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT time,name FROM images_processed WHERE name != '' ORDER by time DESC LIMIT 10",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Last 10 processed images",
+          "transform": "timeseries_to_rows",
+          "type": "table"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 4,
+            "x": 20,
+            "y": 7
+          },
+          "header_js": "{}",
+          "id": 25,
+          "links": [
+            {
+              "title": "Last Images",
+              "url": "/d/lastimagesdashboard/last-images"
+            }
+          ],
+          "method": "iframe",
+          "mode": "html",
+          "params_js": "{\n __now:Date.now(),\n}",
+          "request": "http",
+          "responseType": "text",
+          "showErrors": true,
+          "showTime": true,
+          "showTimeFormat": "LTS",
+          "showTimePrefix": null,
+          "showTimeValue": "request",
+          "skipSameURL": false,
+          "templateResponse": true,
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Last processed image",
+          "type": "ryantxu-ajax-panel",
+          "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-processed",
           "withCredentials": false
         },
         {
@@ -932,7 +1180,7 @@ spec:
           "timeShift": null,
           "title": "Last anonymized image",
           "type": "ryantxu-ajax-panel",
-          "url": "${image_server_url}/last_image_small/${bucket_base_name}-anonymized",
+          "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-anonymized",
           "withCredentials": false
         },
         {

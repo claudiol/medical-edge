@@ -4,6 +4,7 @@ metadata:
 #  labels:
 #    app: grafana
   name: xraylab-images-dashboard
+  namespace: xraylab-1
 #  uid: lastimagesdashboard
 spec:
   json: |
