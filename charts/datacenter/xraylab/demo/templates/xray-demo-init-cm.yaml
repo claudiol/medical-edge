@@ -15,7 +15,7 @@ data:
     bucket_base_name = '{{ .Values.global.xraylab.namespace }}'
     aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
     aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
-    endpoint_url = 'http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local'
+    endpoint_url = 'http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc'
 
     s3 = boto3.client('s3',
                     endpoint_url = endpoint_url,
