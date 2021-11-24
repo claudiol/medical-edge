@@ -15,7 +15,7 @@ data:
     bucket_base_name = '{{ .Values.global.xraylab.namespace }}'
     aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
     aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
-    endpoint_url = 'https://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com'
+    endpoint_url = 'http://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com'
 
     s3 = boto3.client('s3',
                     endpoint_url = endpoint_url,
