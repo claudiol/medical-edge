@@ -155,17 +155,10 @@ data:
         ]
       }
       try:
-        s3.put_bucket_notification_configuration(Bucket='xraylab-1',
-          NotificationConfiguration={
-            'TopicConfigurations' : [
-            {
-            'Id': 'xray-images',
-            'TopicArn': arn, #'arn:aws:sns:s3a::xray-images',
-            'Events': ['s3:ObjectCreated:*'],
-            },
-            ],
-          },
-          )
+        mys3 = boto3.resource('s3')
+        bucket_notification = mys3.BucketNotification('xraylab-1')
+        response = bucket_notification.put(NotificationConfiguration=bucket_notifications_configuration)
+        print('Bucket notification updated successfully')
       except ClientError:
         print("Could not create bucket notification: %s" % bucket_notifications_configuration)
         raise
