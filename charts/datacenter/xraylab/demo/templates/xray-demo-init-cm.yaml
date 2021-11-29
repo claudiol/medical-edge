@@ -67,11 +67,7 @@ data:
     \   }\n    \n    try:\n        s3.put_bucket_notification_configuration(Bucket='xraylab-1',\n
     \                                                NotificationConfiguration={\n
     \                                                    'TopicConfigurations' : [\n
-    \                                                        {\n                                                             'Id':
-    'xray-images',\n                                                             'TopicArn':
-    arn, #'arn:aws:sns:s3a::xray-images',\n                                                             'Events':
-    ['s3:ObjectCreated:*'],\n                                                         },\n
-    \                                                    ],\n                                                 },\n
+    \                                                        {\n                                                             'Id': 'xray-images',\n                                                             'TopicArn': arn, #'arn:aws:sns:s3a::xray-images',\n                                                             'Events': ['s3:ObjectCreated:*'],\n                                                         },\n \                                                    ],\n                                                 },\n
     \                                                )\n    except ClientError:\n
     \       print(\"Couldn't create bucket notification: %s\" % bucket_notifications_configuration)\n
     \       raise\n\n# These are the main functions that will be called.\ns3 = getS3Client()\nsns \
