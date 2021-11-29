@@ -71,6 +71,5 @@ data:
     \                                                )\n    except ClientError:\n
     \       print(\"Couldn't create bucket notification: %s\" % bucket_notifications_configuration)\n
     \       raise\n\n# These are the main functions that will be called.\ns3 = getS3Client()\nsns \
-    = getSNSClient()\n\ncreateXRayS3Buckets(s3)\nsetS3BucketsPolicies( s3 )\n\ntopic_arn \
-    = create_topic('xray-images')\narn=topic_arn['TopicArn']\n\nsetBucketNotifications( \
-    s3, arn )\n\n\n"
+    \ = getSNSClient()\n\ncreateXRayS3Buckets(s3)\nsetS3BucketsPolicies( s3 )\n\ntopic_arn \
+    \ = create_topic('xray-images')\narn=topic_arn['TopicArn']\n\nsetBucketNotifications( s3, arn )\n\n\n"
