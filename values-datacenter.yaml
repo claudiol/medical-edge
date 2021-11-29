@@ -16,7 +16,7 @@ site:
   - openshift-serverless
   - opendatahub
   - openshift-storage
-  - xraylab-0001
+  - xraylab-1
   - knative-serving
   - knative-eventing
   - staging
@@ -27,7 +27,6 @@ site:
     - knative-eventing
     - knative-serving
     - knative-kafka
-      #- xraylab-0001
 
   subscriptions:
   - name: advanced-cluster-management
@@ -36,12 +35,12 @@ site:
     csv: advanced-cluster-management.v2.3.2
 
   - name: amq-streams
-    namespace: xraylab-0001 
+    namespace: xraylab-1 
     channel: amq-streams-1.7.x
     csv: amqstreams.v1.7.1
 
   - name: grafana-operator
-    namespace: xraylab-0001 
+    namespace: xraylab-1 
     channel: v4
     source: community-operators
     csv: grafana-operator.v3.10.3
@@ -80,37 +79,47 @@ site:
     path: charts/datacenter/cephobjectstore
 
   - name: knative
-    namespace: xraylab-0001
+    namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/xraylab/knative
 
+  - name: demo
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/demo
+
+  - name: user
+    namespace: xraylab-1
+    project: datacenter
+    path: charts/datacenter/xraylab/user
+    
   - name: kafka
-    namespace: xraylab-0001
+    namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/xraylab/kafka
 
   - name: kafkasource
-    namespace: xraylab-0001
+    namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/xraylab/kafkasource
 
   - name:  grafana
-    namespace: xraylab-0001
+    namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/xraylab/grafana
 
   - name:  imageserver
-    namespace: xraylab-0001
+    namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/xraylab/image-server
 
   - name:  imagegenerator
-    namespace: xraylab-0001
+    namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/xraylab/image-generator
     
   - name: xraydb
-    namespace: xraylab-0001
+    namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/xraylab/xraydb
   
@@ -135,7 +144,7 @@ site:
       forceString: true
 
 #  - name: kafka
-#    namespace: xraylab-0001
+#    namespace: xraylab-1
 #    project: datacenter
 #    path: charts/datacenter/xraylab/kafka
 #

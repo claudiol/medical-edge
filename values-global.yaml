@@ -8,16 +8,16 @@ global:
   # XRay configuration for service-point config map
   # Found in charts/datacenter/xraylab/templates
   datacenter:
-    clustername: jrickard-xray
+    clustername: claudiol-xray
     domain: blueprints.rhecoeng.com
 
   xraylab:
-    namespace: "xraylab-0001"
+    namespace: "xraylab-1"
     xraydbhost: "127.0.0.1"
     xraydb: "xraylabdb"
     ocsstorage:
       serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc"
-      externalUrl: "https://rgw-openshift-storage.apps.{{ .Values.global.datacenter.clustername }}.{{ .Values.global.datacenter.domain }}"
+      externalUrl: "https://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
     ocs:
       namespace: openshift-storage
       mon:
@@ -58,7 +58,7 @@ global:
           name: "knative-kafka"
           namespace: "knative-eventing"
       kafkaSource:
-        bootstrapserver: "xray-cluster-kafka-bootstrap:9092"
+        bootstrapserver: "xray-cluster-kafka-1.xray-cluster-kafka-brokers.xraylab-1.svc:9092"
         name: "xray-images"
         consumerGroup: "risk-assessment"
     kafka:
@@ -71,7 +71,7 @@ global:
         port: 9000
         targetPort: 9000
       route:
-        subdomain: "" #"xraylab-0001-kafdrop"
+        subdomain: "" #"xraylab-1-kafdrop"
         weight: 100
         wildcardPolicy: "None"
       deployment:
@@ -79,12 +79,12 @@ global:
         replicas: 1
         env:
           - name: KAFKA_BROKERCONNECT
-            value: "xray-cluster-kafka-bootstrap:9092"
+            value: "xray-cluster-kafka-1.xray-cluster-kafka-brokers.xraylab-1.svc:9092"
           - name: JVM_OPTS
             value: "-Xms32M -Xmx64M"
           - name: SERVER_SERVLET_CONTEXTPATH
             value: "/"
     s3:
       bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.xray-source"
-      bucketBaseName: "xraylab-0001"
+      bucketBaseName: "xraylab-1"
 

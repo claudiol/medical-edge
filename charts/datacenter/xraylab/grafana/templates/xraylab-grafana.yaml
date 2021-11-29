@@ -2,6 +2,7 @@ apiVersion: integreatly.org/v1alpha1
 kind: Grafana
 metadata:
   name: xraylab-grafana
+  namespace: {{ .Values.global.xraylab.namespace }}
 spec:
   ingress:
     enabled: true
