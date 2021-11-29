@@ -116,7 +116,9 @@ data:
              'Value': 'broker'
            } ]
 
-        mysns = boto3.client("sns")
+        mysns = boto3.client("sns",
+                              region_name=region)
+
         topic_arn = mysns.create_topic(Name=topic, Tags=tags)
         sns_topic_policy = {
           "Version": "2012-10-17",
