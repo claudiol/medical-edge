@@ -129,7 +129,7 @@ data:
             "Action": "sns:Publish",
             "Resource": topic_arn['TopicArn'],
             "Condition": {
-              "ArnLike": {"AWS:SourceArn": "arn:aws:s3:*:*:{bucket_base_name}"},
+              "ArnLike": {"AWS:SourceArn": "arn:aws:s3:*:*:xraylab-1"},
             },
           },
           ],
