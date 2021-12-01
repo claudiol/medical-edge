@@ -122,6 +122,26 @@ site:
     namespace: xraylab-1
     project: datacenter
     path: charts/datacenter/xraylab/xraydb
+  
+  - name: hashivault
+    namespace: vault
+    project: datacenter
+    chart: vault
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.17.1
+    overrides:
+    - name: build.enabled
+      value: "false"
+      forceString: true
+    - name: deploy.route.tls.enabled
+      value: "true"
+      forceString: true
+    - name: global.openshift
+      value: "true"
+      forceString: true
+    - name: server.dev.enabled
+      value: "true"
+      forceString: true
 
 #  - name: kafka
 #    namespace: xraylab-1
