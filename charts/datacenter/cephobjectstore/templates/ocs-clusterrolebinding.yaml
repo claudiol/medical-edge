@@ -1,13 +1,13 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ .Values.ocs.rbac-policy.name }}-clusterrolebinding
+  name: {{ .Values.ocs.rbacpolicy.name }}-clusterrolebinding
 roleRef:
   apiGroup: ""
   kind: ClusterRole
-  name: {{ .Values.ocs.rbac-policy.name }}
+  name: {{ .Values.ocs.rbacpolicy.name }}
 subjects:
 - kind: ServiceAccount
-  name: {{ .Values.ocs.rbac-policy.serviceaccount }}
+  name: {{ .Values.ocs.rbacpolicy.serviceaccount }}
   namespace: openshift-storage
   apiGroup: ""

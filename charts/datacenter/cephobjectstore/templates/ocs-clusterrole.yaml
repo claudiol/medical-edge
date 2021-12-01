@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ .Values.ocs.rbac-policy.name }}-clusterrole
+  name: {{ .Values.ocs.rbacpolicy.name }}-clusterrole
 rules:
 - apiGroups: [""]
   resources: ["nodes"]

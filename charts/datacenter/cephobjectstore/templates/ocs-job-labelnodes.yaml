@@ -14,5 +14,5 @@ spec:
         - -c 
         - "oc label nodes -l node-role.kubernetes.io/worker= cluster.ocs.openshift.io/openshift-storage="
       restartPolicy: Never
-      serviceAccountName: {{ .Values.ocs.rbac-policy.serviceaccount }}
+      serviceAccountName: {{ .Values.ocs.rbacpolicy.serviceaccount }}
     backoffLimit: 1

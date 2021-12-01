@@ -1,5 +1,5 @@
 ocs:
-  rbac-policy:
+  rbacpolicy:
     name: ocs-node-label
     serviceaccount: node-labeler
 
