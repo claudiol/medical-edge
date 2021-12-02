@@ -3,6 +3,8 @@ kind: Job
 metadata:
   name: label-nodes
   namespace: openshift-gitops
+  annotations:
+    managed-by: argocd.argoproj.io
 spec:
   template:
     spec:
