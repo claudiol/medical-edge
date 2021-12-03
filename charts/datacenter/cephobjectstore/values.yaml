@@ -1,5 +1,5 @@
 ocs:
   rbacpolicy:
     name: ocs-node-label
-    serviceaccount: node-labeler
+    serviceaccount:  openshift-gitops-argocd-application-controller
 
