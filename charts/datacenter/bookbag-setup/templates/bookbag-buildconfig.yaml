@@ -18,6 +18,6 @@ spec:
     dockerStrategy:
       from:
         kind: DockerImage
-        name: "{{ .Values.bookbag.builder_image }}:{{ .Valuesbookbag.builder_image_tag }}"
+        name: "{{ .Values.bookbag.builder_image }}:{{ .Values.bookbag.builder_image_tag }}"
   triggers:
   - type: ConfigChange
