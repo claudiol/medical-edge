@@ -1,0 +1,17 @@
+bookbag:
+  deployment:
+    name: bookbag
+    namespace: 
+    replicas: 1
+    image: image-registry.openshift-image-registry.svc:5000/bookbag/bookbag
+    tag: latest
+    serviceAccountName: bookbag
+  workshopVars:
+    {"guid": "xraylab-1",
+             "web_console_url": "https://console-openshift-console.apps.cluster-5mhnr.5mhnr.sandbox996.opentlc.com",
+             "api_url": "https://api.cluster-5mhnr.5mhnr.sandbox996.opentlc.com:6443",
+             "login_command": "oc login -u xraylab-1 https://api.cluster-5mhnr.5mhnr.sandbox996.opentlc.com:6443",
+             "rgw_url_external": "https://s3-rgw-openshift-storage.apps.cluster-5mhnr.5mhnr.sandbox996.opentlc.com",
+             "S3_access_key": "XXXXXXXXXXXXXXXXXXXX", "S3_secret_key": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+             "ocp_username": "xraylab-1"}
+  create_pvc: false
