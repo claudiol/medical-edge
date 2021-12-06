@@ -10,70 +10,166 @@ data:
     import json
     import botocore
     import argparse
-
-    namespace = '{{ .Values.global.xraylab.namespace }}'
-    bucket_base_name = '{{ .Values.global.xraylab.namespace }}'
+    from botocore.exceptions import ClientError
+    namespace = 'xraylab-1'
+    bucket_base_name = 'xraylab-1'
     aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
     aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
-    endpoint_url = 'http://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com'
+    region = "us-west-1"
+    endpoint_url = 'https://s3.' + region + '.amazonaws.com'
+    sns_endpoint_url = 'https://sns.' + region + '.amazonaws.com'
 
-    s3 = boto3.client('s3',
-                    endpoint_url = endpoint_url,
-                    aws_access_key_id = aws_access_key_id,
-                    aws_secret_access_key = aws_secret_access_key,
-                    region_name = 'default',
-                    config=botocore.client.Config(signature_version = 's3'))
+    def getSTSClient ():
+      try:
+        sts = boto3.client('sts')
+        return sts
+      except ClientError:
+        print("Could not create STS client")
+        raise
 
-    sns = boto3.client('sns', 
-                    endpoint_url = endpoint_url, 
-                    aws_access_key_id = aws_access_key_id,
-                    aws_secret_access_key= aws_secret_access_key,
-                    region_name='default', 
-                    config=botocore.client.Config(signature_version = 's3'))
+    def getSTSSessionToken(sts ):
+      try:
+        token = sts.get_session_token()
+        sessionToken = token['Credentials']['SessionToken']
+        return sessionToken
+      except ClientError:
+        print("Could not retrieve STS Session Token")
+        raise
+        
+    def getS3Client():
+      try:
+        s3 = boto3.client('s3',
+        endpoint_url = endpoint_url,
+        aws_access_key_id = aws_access_key_id,
+        aws_secret_access_key = aws_secret_access_key,
+        region_name = region,
+        config=botocore.client.Config(signature_version = 's3'))
+        return s3
+      except ClientError:
+        print("Could not retrieve S3 client")
+        raise
 
-    def create_bucket(bucket_name):
-        result = s3.create_bucket(Bucket=bucket_name)
+    def getSNSClient():
+      sts = getSTSClient()
+      sessionToken = getSTSSessionToken(sts)
+      try:
+        sns = boto3.client('sns',
+                           endpoint_url = sns_endpoint_url,
+                           aws_access_key_id = aws_access_key_id,
+                           aws_secret_access_key= aws_secret_access_key,
+                           aws_session_token=sessionToken,
+                           region_name=region,
+                           config=botocore.client.Config(signature_version = 's3'))
+        return sns
+      except ClientError:
+        print ("Could not retrieve SNS client")
+        raise
+
+    def create_bucket(s3, bucket_name, region):
+      try:
+        result = s3.create_bucket(Bucket=bucket_name,
+        CreateBucketConfiguration={'LocationConstraint': region})
         return result
+      except ClientError:
+        print("Could not create bucket [" + bucket_name + "]")
+        raise
 
-    create_bucket(bucket_base_name)
-    create_bucket(bucket_base_name+'-processed')
-    create_bucket(bucket_base_name+'-anonymized')
-
-    for bucket in s3.list_buckets()['Buckets']:
-        bucket_policy = {
-                        "Version":"2012-10-17",
-                        "Statement":[
-                            {
-                            "Sid":"AddPerm",
-                            "Effect":"Allow",
-                            "Principal": "*",
-                            "Action":["s3:GetObject"],
-                            "Resource":["arn:aws:s3:::{0}/*".format(bucket['Name'])]
-                            }
-                        ]
-                        }
-        bucket_policy = json.dumps(bucket_policy)
-        s3.put_bucket_policy(Bucket=bucket['Name'], Policy=bucket_policy)
-
-    attributes = {}
-    attributes['push-endpoint'] = 'kafka://{{ .Values.global.xraylab.knative.kafkaSource.bootstrapserver }}'
-    attributes['kafka-ack-level'] = 'broker'
+    def createXRayS3Buckets( s3 ):
+      try:
+        result = create_bucket(s3, bucket_base_name, region)
+        result = create_bucket(s3, bucket_base_name+'-processed', region)
+        result = create_bucket(s3, bucket_base_name+'-anonymized', region)
+      except:
+        pass
+    # We pass here if the buckets are already created.
+    def setS3BucketsPolicies( s3 ):
+      try:
+        for bucket in s3.list_buckets()['Buckets']:
+          if 'xraylab' in bucket['Name']:
+            bucket_policy = {
+            "Version": "2012-10-17",
+            "Statement":[
+            {
+              "Sid": "AddPerm",
+              "Effect": "Allow",
+              "Principal":    "*",
+              "Action":["s3:GetObject"],
+              "Resource":["arn:aws:s3:::{0}/*".format(bucket['Name'])]
+            }
+            ]
+            }
+            bucket_policy = json.dumps(bucket_policy)
+            print ("Adding bucket policy to [" + bucket['Name'] +"]" )
+            s3.put_bucket_policy(Bucket=bucket['Name'], Policy=bucket_policy)
+      except ClientError:
+        print("Error setting S3 bucket policy")
+        raise
 
     def create_topic(topic):
-        topic_arn = sns.create_topic(Name=topic, Attributes=attributes)['TopicArn']
+      try:
+        tags=[{
+               'Key': 'push-endpoint',
+               'Value': 'kafka://xray-cluster-kafka-1.xray-cluster-kafka-brokers.xraylab-1.svc:9092'
+           },
+           {
+             'Key': 'kafka-ack-level',
+             'Value': 'broker'
+           } ]
+
+        mysns = boto3.client("sns",
+                              region_name=region)
+
+        topic_arn = mysns.create_topic(Name=topic, Tags=tags)
+        sns_topic_policy = {
+          "Version": "2012-10-17",
+          "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "sns:Publish",
+            "Resource": topic_arn['TopicArn'],
+            "Condition": {
+              "ArnLike": {"AWS:SourceArn": "arn:aws:s3:*:*:xraylab-1"},
+            },
+          },
+          ],
+        }
+        mysns.set_topic_attributes(
+          TopicArn=topic_arn['TopicArn'],
+          AttributeName='Policy',
+          AttributeValue=json.dumps(sns_topic_policy),
+        )
         return topic_arn
+      except ClientError:
+        print("Couldn't create topic %s." % topic)
+        raise
 
-    create_topic('xray-images')
-
-    bucket_notifications_configuration = {
-                "TopicConfigurations": [
-                    {
-                        "Id": 'xray-images',
-                        "TopicArn": 'arn:aws:sns:s3a::xray-images',
-                        "Events": ["s3:ObjectCreated:*"]
-                    }
-                ]
-            }
-
-    s3.put_bucket_notification_configuration(Bucket = bucket_base_name,
-            NotificationConfiguration=bucket_notifications_configuration)
+    def setBucketNotifications( s3, arn ):
+      bucket_notifications_configuration = {
+        "TopicConfigurations" : [
+            {
+                "Id": "xray-images",
+                "TopicArn": arn, 
+                "Events": ["s3:ObjectCreated:*"],
+            },
+        ]
+      }
+      try:
+        mys3 = boto3.resource('s3',
+                              region_name=region,
+                              aws_access_key_id=aws_access_key_id,
+                              aws_secret_access_key=aws_secret_access_key)
+        bucket_notification = mys3.BucketNotification('xraylab-1')
+        response = bucket_notification.put(NotificationConfiguration=bucket_notifications_configuration)
+        print('Bucket notification updated successfully')
+      except ClientError:
+        print("Could not create bucket notification: %s" % bucket_notifications_configuration)
+        raise
+    # These are the main functions that will be called.
+    s3 = getS3Client()
+    sns = getSNSClient()
+    createXRayS3Buckets(s3)
+    setS3BucketsPolicies( s3 )
+    topic_arn = create_topic('xray-images')
+    arn=topic_arn['TopicArn']
+    setBucketNotifications( s3, arn )
