@@ -1,0 +1,112 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.bookbag.deployment.name }}
+  namespace: {{ .Values.bookbag.deployment.namespace }}
+spec:
+  replicas: {{ .Values.bookbag.deployment.replicas }}
+  selector:
+    matchLabels:
+      deployment: {{ .Values.bookbag.deployment.name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        deployment: {{ .Values.bookbag.deployment.name }}
+    spec:
+      restartPolicy: Always
+      serviceAccountName: {{ .Values.bookbag.deployment.name }}
+      initContainers:
+      - name: setup-console
+        image: {{ .Values.bookbag.deployment.image }}:{{ .Values.bookbag.deployment.tag }}
+        command:
+        - /opt/workshop/bin/setup-console.sh
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+        volumeMounts:
+        - name: shared
+          mountPath: /var/run/workshop
+      containers:
+      - name: terminal
+        image: {{ .Values.bookbag.deployment.image }}:{{ .Values.bookbag.deployment.tag }}
+        imagePullPolicy: Always
+        env:
+        - name: APPLICATION_NAME
+          value: {{ .Values.bookbag.deployment.name }}
+        - name: AUTH_USERNAME
+          value: '*'
+        - name: CONSOLE_IMAGE
+          value: "{{ ocp4_workload_bookbag_user_console_image }}"
+        - name: CONSOLE_BRANDING
+          value: openshift
+        - name: ROLE
+          value: admin
+        - name: CONSOLE_URL
+          value: http://0.0.0.0:10083
+        - name: OAUTH_SERVICE_ACCOUNT
+          value: {{ .Values.bookbag.deployment.serviceAccountName }}
+        - name: DOWNLOAD_URL
+        - name: WORKSHOP_FILE
+        - name: OC_VERSION
+        - name: ODO_VERSION
+        - name: KUBECTL_VERSION
+        - name: WORKSHOP_VARS
+          value: {{ .Values.bookbag.workshopVars  | toJson | quote }}
+        ports:
+        - containerPort: 10080
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 250m
+            memory: 512Mi
+        volumeMounts:
+        - name: shared
+          mountPath: /var/run/workshop
+{{- if .Values.bookbag.createPvc -}}
+        - name: home
+          mountPath: /opt/app-root/src
+{{- end -}}
+      - name: console
+        image: "{{ ocp4_workload_bookbag_user_console_image }}"
+        command:
+        - /var/run/workshop/start-console.sh
+        env:
+        - name: BRIDGE_K8S_MODE
+          value: in-cluster
+        - name: BRIDGE_LISTEN
+          value: http://0.0.0.0:10083
+        - name: BRIDGE_BASE_PATH
+          value: /console/
+        - name: BRIDGE_PUBLIC_DIR
+          value: /opt/bridge/static
+        - name: BRIDGE_USER_AUTH
+          value: disabled
+        - name: BRIDGE_BRANDING
+          value: "{{ ocp4_workload_bookbag_user_console_branding }}"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+        volumeMounts:
+        - name: shared
+          mountPath: /var/run/workshop
+      volumes:
+      - name: shared
+        emptyDir: {}
+{{- if .Values.bookbag.createPVC -}}
+      - name: home
+        persistentVolumeClaim:
+          claimName: "{{ ocp4_workload_bookbag_user_deployment_name }}"
+{{- end -}}
