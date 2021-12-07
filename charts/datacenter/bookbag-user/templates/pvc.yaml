@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: "{{ ocp4_workload_bookbag_user_deployment_name }}"
-  namespace: "{{ ocp4_workload_bookbag_user_project }}"
+  name: {{ .Values.bookbag.deployment.name }}
+  namespace: {{ .Values.bookbag.deployment.namespace }}
 spec:
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: "{{ ocp4_workload_bookbag_user_pvc_size }}"
+      storage: {{ .Values.bookbag.pvc.size }}
