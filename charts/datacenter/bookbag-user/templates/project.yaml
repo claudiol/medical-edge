@@ -5,4 +5,4 @@ metadata:
   annotations:
     openshift.io/description: ""
     openshift.io/display-name: {{ .Values.bookbag.deployment.namespace.description }}
-    openshift.io/requester: "{{ ocp_username }}"
+    openshift.io/requester: {{ .Values.bookbag.ocpUsername }}
