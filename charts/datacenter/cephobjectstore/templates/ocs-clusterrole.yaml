@@ -2,6 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ .Values.ocs.rbacpolicy.name }}-clusterrole
+  namespace: openshift-storage
 rules:
 - apiGroups: [""]
   resources: ["nodes"]
