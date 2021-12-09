@@ -1,8 +1,8 @@
 apiVersion: integreatly.org/v1alpha1
 kind: GrafanaDashboard
 metadata:
-#  labels:
-#    app: grafana
+  labels:
+    app: grafana
   name: xraylab-images-dashboard
   namespace: {{ .Values.global.xraylab.namespace }}
 #  uid: lastimagesdashboard
