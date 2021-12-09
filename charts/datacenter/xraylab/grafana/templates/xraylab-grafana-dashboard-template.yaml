@@ -790,7 +790,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(pod:container_cpu_usage:sum{namespace=\"$namespace\"})",
+              "expr": "sum(pod:container_cpu_usage:sum{namespace=\"{{ .Values.global.xraylab.namespace }}\"})",
               "format": "time_series",
               "instant": false,
               "intervalFactor": 1,
@@ -800,7 +800,7 @@ spec:
               "step": 10
             },
             {
-              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\"})",
+              "expr": "sum(container_memory_working_set_bytes{namespace=\"{{ .Values.global.xraylab.namespace }}\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "RAM",
@@ -911,7 +911,7 @@ spec:
           "pluginVersion": "7.1.1",
           "targets": [
             {
-              "expr": "sum(kube_pod_container_status_running{pod=~\"risk-assessment.*\",namespace=~\"$namespace\"})",
+              "expr": "sum(kube_pod_container_status_running{pod=~\"risk-assessment.*\",namespace=~\"{{ .Values.global.xraylab.namespace }}\"})",
               "format": "time_series",
               "instant": true,
               "interval": "",
@@ -1262,7 +1262,7 @@ spec:
           ],
           "targets": [
             {
-              "expr": "kube_deployment_status_replicas{deployment=~\"risk-assessment.*\",namespace=~\"$namespace\"}",
+              "expr": "kube_deployment_status_replicas{deployment=~\"risk-assessment.*\",namespace=~\"{{ .Values.global.xraylab.namespace }}\"}",
               "format": "time_series",
               "instant": true,
               "interval": "",
@@ -1440,8 +1440,8 @@ spec:
           },
           {
             "current": {
-              "text": "${namespace}",
-              "value": "${namespace}"
+              "text": "{{ .Values.global.xraylab.namespace }}",
+              "value": "{{ .Values.global.xraylab.namespace }}"
             },
             "hide": 2,
             "label": "Namespace",
@@ -1449,11 +1449,11 @@ spec:
             "options": [
               {
                 "selected": true,
-                "text": "${namespace}",
-                "value": "${namespace}"
+                "text": "{{ .Values.global.xraylab.namespace }}",
+                "value": "{{ .Values.global.xraylab.namespace }}"
               }
             ],
-            "query": "${namespace}",
+            "query": "{{ .Values.global.xraylab.namespace }}",
             "skipUrlSync": false,
             "type": "constant"
           }
