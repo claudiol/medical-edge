@@ -16,7 +16,7 @@ global:
     xraydbhost: "127.0.0.1"
     xraydb: "xraylabdb"
     ocsstorage:
-      serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc"
+      serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local
       externalUrl: "https://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
     ocs:
       namespace: openshift-storage
@@ -85,6 +85,6 @@ global:
           - name: SERVER_SERVLET_CONTEXTPATH
             value: "/"
     s3:
-      bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.xray-source"
+      bucketSource: "https://s3.us-east-1.amazonaws.com/com.redhat.csds.guimou.xray-source
       bucketBaseName: "xraylab-1"
 
