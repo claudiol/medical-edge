@@ -913,7 +913,7 @@ items:
             "pluginVersion": "7.1.1",
             "targets": [
               {
-                "expr": "sum(kube_pod_container_status_running{pod=~\"risk-assessment.*\",namespace=~\"{{ .Values.global.xraylab.namespace }}\"})",
+                "expr": "count(kube_pod_info{pod=~\"risk-assessment.*\",namespace=~\"{{ .Values.global.xraylab.namespace }}\"})",
                 "format": "time_series",
                 "instant": true,
                 "interval": "",
@@ -1495,7 +1495,7 @@ items:
         "uid": "hakbeh9Wz",
         "version": 4
       }
-    name: xraylab-dashboard.json
+    #name: xraylab-dashboard.json
     plugins:
       - name: larona-epict-panel
         version: 1.2.2
@@ -1681,7 +1681,7 @@ items:
         "uid": "lastimagesdashboard",
         "version": 6
       }
-    name: xraylab-images-dashboard.json
+    #name: xraylab-images-dashboard.json
     plugins:
       - name: ryantxu-ajax-panel
         version: 0.0.7-dev
