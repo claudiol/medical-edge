@@ -16,7 +16,7 @@ global:
     xraydbhost: "127.0.0.1"
     xraydb: "xraylabdb"
     ocsstorage:
-      serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local
+      serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
       externalUrl: "https://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
     ocs:
       namespace: openshift-storage
