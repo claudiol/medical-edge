@@ -28,7 +28,7 @@ do
     log -n "Checking that the namespace [ xraylab-1 ] exists ..."
     oc get namespace xraylab-1 > /dev/null 2>&1
     if [ $? == 0 ]; then
-	log "done"
+	echo "done"
 	break
     fi
 done
@@ -51,39 +51,23 @@ do
     fi
 done	
 
-#
-# This is a temporary Service Account to label nodes for OpenShift Storage
-#
-log -n "Creating ocs-node-labeler Service Account ... " 
-#oc create sa ocs-labeler > /dev/null 2>&1
-#if [ $? == 0 ]; then
-#    echo "done"
-#else
-#    echo "Already exists"
-#fi
-
+log -n "Labeling Worker nodes for OCS ... " 
 oc label node -l node-role.kubernetes.io/worker= cluster.ocs.openshift.io/openshift-storage= > /dev/null 2>&1
 if [ $? == 0 ]; then
     echo "done"
 fi
 
-#log -n "Adding cluster role for ocs-node-labeler Service Account ... " 
-#oc adm policy add-cluster-role-to-user cluster-admin -z  ocs-node-labeler
-#if [ $? == 0 ]; then
-#    echo "done"
-#fi
-
 #
 # bookbag Service Account in the bookbag-xraylab-1
 #
 log -n "Creating bookbag Service Account ... "
-oc create sa bookbag
+oc create sa bookbag -n bookbag-xraylab-1
 if [ $? == 0 ]; then
     echo "done"
 fi
 
 log -n "Adding cluster role for bookbag Service Account ... "
-oc adm policy add-cluster-role-to-user cluster-admin -z bookbag
+oc adm policy add-cluster-role-to-user cluster-admin -z bookbag -n bookbag-xraylab-1 > /dev/null 2>&1 
 if [ $? == 0 ]; then
     echo "done"
 fi
@@ -115,6 +99,7 @@ SATOKEN=$(oc get secret $(oc get secret | grep grafana-serviceaccount-token | ta
 #  Still not sure how we will be able to apply this token to the grafana/prometheus-datasource.yaml manifest
 #  One idea is to add the token to the ~/values-secret.yaml, run helm template and then oc apply the manifest.
 # For now we will sed ... ugh
+# This has to be excluded from the grafana chart and added to the secrets chart
 sed -i "s/BEARER-TOKEN/$SATOKEN/g" charts/datacenter/xraylab/grafana/templates/xraylab-grafana-prometheus-datasource.yaml
 if [ $? == 0 ]; then
     echo "done"
@@ -139,13 +124,27 @@ if [ $? == 0 ]; then
 fi
 
 POD=""
+COUNTER=0
 while ( true )
 do
     log -n "Make sure that rook-ceph-tools pod is running ... "
-    POD=$(oc get pods -n openshift-storage | grep rook-ceph-tools | grep Running | awk '{print $1}')
-    if [ -z $POD ]; then
+    oc get pods -n openshift-storage | grep rook-ceph-tools | grep Running > /dev/nul 2>&1
+
+    if [ $? != 0 ]; then
+	let COUNTER++
+	sleep 3
+	if [ $COUNTER == 50 ]; then
+	    break
+	fi
+	continue
+    fi
+    
+    POD=$(oc get pods -n openshift-storage | grep rook-ceph-tools | grep Running )
+    if [ $? != 0 ]; then
+	sleep 3
 	continue;
     else
+	POD=$(oc get pods -n openshift-storage | grep rook-ceph-tools | grep Running | awk '{print $1}')
 	echo "Done"
 	break;
     fi
@@ -172,7 +171,6 @@ do
     S3_ACCESS_KEY=$(echo -n $RESPONSE | jq -j '.keys[0].access_key' | base64 -w 0 )
     S3_SECRET_KEY=$(echo -n $RESPONSE | jq -j '.keys[0].secret_key' | base64 -w 0 )
 
-    echo $S3_ACCESS_KEY
     if [ ! -z $S3_ACCESS_KEY ] && [ ! -x $S3_SECRET_KEY ]; then
 	cat <<EOF > /tmp/s3-secret-bck.yaml
 apiVersion: v1	  
@@ -189,7 +187,8 @@ EOF
 	log -n "Applying s3 secret ... "
 	oc apply -f /tmp/s3-secret-bck.yaml
 	if [ $? == 0 ]; then
-	    log "Done\r"
+	    echo "Done"
+	    rm -f /tmp/s3-secret-bck.yaml
 	    break
 	else
 	    log "Something went wrong applying s3-secret manifest"

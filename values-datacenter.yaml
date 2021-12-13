@@ -17,6 +17,8 @@ site:
   - opendatahub
   - openshift-storage
   - xraylab-1
+  - bookbag
+  - bookbag-xraylab-1
   - knative-serving
 #  - knative-eventing #jrickard - testing sync status
   - staging

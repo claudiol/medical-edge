@@ -19,6 +19,12 @@ ifeq ($(BOOTSTRAP),1)
 	make bootstrap
 endif
 
+upgrade: upgrade
+ifeq ($(BOOTSTRAP),1)
+	echo "Bootstrapping Medical Diagnosis Pattern"
+	make bootstrap
+endif
+
 bootstrap:
 	./scripts/bootstrap-medical-edge.sh
 
