@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.deployment.namespace }}
 spec:
   port:
-    targetPort: {{ .Values.route.port }}
+    targetPort: {{ .Values.service.port.name }}
   tls:
     insecureEdgeTerminationPolicy: {{ .Values.route.tls.insecureTerminationPolicy }}
     termination: {{ .Values.route.tls.termination }}
