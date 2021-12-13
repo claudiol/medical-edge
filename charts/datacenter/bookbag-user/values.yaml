@@ -1,17 +1,105 @@
-bookbag:
-  deployment:
-    name: bookbag
-    namespace: 
-    replicas: 1
-    image: image-registry.openshift-image-registry.svc:5000/bookbag/bookbag
-    tag: latest
-    serviceAccountName: bookbag
+#--------------------------------------
+# Project Deployment Configuration
+#--------------------------------------
+deployment:
+  name: 
+  namespace:
+  description:
+  replicas:
+  image:
+  tag:
+  serviceAccountName:
   workshopVars:
-    {"guid": "xraylab-1",
-             "web_console_url": "https://console-openshift-console.apps.cluster-5mhnr.5mhnr.sandbox996.opentlc.com",
-             "api_url": "https://api.cluster-5mhnr.5mhnr.sandbox996.opentlc.com:6443",
-             "login_command": "oc login -u xraylab-1 https://api.cluster-5mhnr.5mhnr.sandbox996.opentlc.com:6443",
-             "rgw_url_external": "https://s3-rgw-openshift-storage.apps.cluster-5mhnr.5mhnr.sandbox996.opentlc.com",
-             "S3_access_key": "XXXXXXXXXXXXXXXXXXXX", "S3_secret_key": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-             "ocp_username": "xraylab-1"}
-  create_pvc: false
+  consoleImage:
+  consoleBranding: openshift
+#--------------------------------------
+
+
+#--------------------------------------
+# Role Based Access Control
+#--------------------------------------
+rbac:
+#--------------------------------------
+# image-puller rolebinding
+#--------------------------------------
+  - roleBindingName: bookbag-admin
+    bindingNamespace: {{ .Values.deployment.namespace }}
+    roleRefName: image-puller
+    serviceAccountName: xraylab-sa1
+    serviceAccountNamespace: sraylab1
+#--------------------------------------
+# Admin rolebinding
+#--------------------------------------
+  - bindingName: xraylab-admin
+    bindingNamespace: xraylab2
+    role: admin
+    kind: "User"
+    userName: xraylab-user
+    apiGroup: rbac.authorization.k8s.io
+#--------------------------------------
+# XXXXXXXXXXXX rolebinding
+#--------------------------------------
+  - bindingName: xraylab-bind3
+    bindingNamespace: xraylab3
+    role: self-provisioner
+    serviceAccountName: xraylab-sa3
+#--------------------------------------
+
+#--------------------------------------
+# Service Account Configuration
+#--------------------------------------
+serviceAccount:
+  name:
+  namespace: 
+#--------------------------------------
+
+#--------------------------------------
+# Service Configuration
+#--------------------------------------
+service:
+  port:
+    name: 10080-tcp
+    ports: 10080
+    protocol: TCP
+    targetPort: 10080
+
+#--------------------------------------
+# Route Configuration
+#--------------------------------------
+route:
+  tls:
+    termination: edge
+    insecureTerminationPolicy: Redirect
+#--------------------------------------
+
+#--------------------------------------
+# PvC Configuration | Default is False
+#--------------------------------------
+pvc:
+#Define the name of the pvc
+  name: ""
+#Set to true to create pvc
+  create: false
+#Define the size of the pvc
+  size: ""
+#Define the accessMode of the pvc to be created
+  accessModes: "ReadWriteOnce"
+#--------------------------------------
+
+#Deployment configuration
+#deployment:
+#  name: bookbag
+#  namespace: 
+#    description: "BookBag project"
+#  replicas: 1
+#  image: image-registry.openshift-image-registry.svc:5000/bookbag/bookbag
+#  tag: latest
+#  serviceAccountName: bookbag
+#  workshopVars:
+#    {"guid": "xraylab-1",
+#             "web_console_url": "https://console-openshift-console.apps.cluster-5mhnr.5mhnr.sandbox996.opentlc.com",
+#             "api_url": "https://api.cluster-5mhnr.5mhnr.sandbox996.opentlc.com:6443",
+#             "login_command": "oc login -u xraylab-1 https://api.cluster-5mhnr.5mhnr.sandbox996.opentlc.com:6443",
+#             "rgw_url_external": "https://s3-rgw-openshift-storage.apps.cluster-5mhnr.5mhnr.sandbox996.opentlc.com",
+#             "S3_access_key": "XXXXXXXXXXXXXXXXXXXX", "S3_secret_key": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+#             "ocp_username": "xraylab-1"}
