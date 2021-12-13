@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.bookbag.deployment.name }}
-  namespace: {{ .Values.bookbag.deployment.namespace }}
+  name: {{ .Values.pvc.name }}
+  namespace: {{ .Values.deployment.namespace }}
 spec:
   accessModes:
-  - ReadWriteOnce
+  - {{ .Values.pvc.accessModes }}
   resources:
     requests:
-      storage: {{ .Values.bookbag.pvc.size }}
+      storage: {{ .Values.pvc.size }}
