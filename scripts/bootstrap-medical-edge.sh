@@ -91,22 +91,6 @@ if [ $? == 0 ]; then
     echo "done"
 fi
 
-log -n "Retrieving grafana service account secret ... "
-# Make sure we are in xraylab-1
-oc project xraylab-1 > /dev/null 2>&1
-SATOKEN=$(oc get secret $(oc get secret | grep grafana-serviceaccount-token | tail -1 | awk '{print $1}') -o json | jq '.data.token')
-#
-#  Still not sure how we will be able to apply this token to the grafana/prometheus-datasource.yaml manifest
-#  One idea is to add the token to the ~/values-secret.yaml, run helm template and then oc apply the manifest.
-# For now we will sed ... ugh
-# This has to be excluded from the grafana chart and added to the secrets chart
-sed -i "s/BEARER-TOKEN/$SATOKEN/g" charts/datacenter/xraylab/grafana/templates/xraylab-grafana-prometheus-datasource.yaml
-if [ $? == 0 ]; then
-    echo "done"
-else
-    log "Error in trying to replace BEARER-TOKEN"
-fi
-
 #
 # Apply prometheus Manifest
 #
@@ -116,7 +100,25 @@ if [ $? == 0 ]; then
     echo "Done"
 fi
 
-log -n "Applying  grafana  manifests ... "
+log -n "Retrieving grafana service account secret ... "
+# Make sure we are in xraylab-1
+oc project xraylab-1 > /dev/null 2>&1
+SATOKEN=$(oc get secret $(oc get secret | grep grafana-serviceaccount-token | tail -1 | awk '{print $1}') -o json | jq -r '.data.token')
+echo "done"
+#
+#  Still not sure how we will be able to apply this token to the grafana/prometheus-datasource.yaml manifest
+#  One idea is to add the token to the ~/values-secret.yaml, run helm template and then oc apply the manifest.
+# For now we will sed ... ugh
+# This has to be excluded from the grafana chart and added to the secrets chart
+log -n "Replacing BEARER-TOKEN ... "
+sed -i "s/BEARER-TOKEN/$SATOKEN/g" /tmp/grafana.yaml
+if [ $? == 0 ]; then
+    echo "done"
+else
+    log "Error in trying to replace BEARER-TOKEN"
+fi
+
+log -n "Applying  grafana and prometheus  manifests ... "
 oc apply -f /tmp/grafana.yaml
 if [ $? == 0 ]; then
     echo "Done"

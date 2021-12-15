@@ -5,6 +5,7 @@ items:
   metadata:
     labels:
       app: grafana
+      grafana: dashboard
     name: xraylab-dashboard
     namespace: {{ .Values.global.xraylab.namespace }}
   #  uid: xraylabdashboard
@@ -1508,14 +1509,15 @@ items:
   #     name: bucket_base_name
   #   - description: Project namespace
   #     name: namespace
-  # labels:
-  #   grafana: dashboard
+  #labels:
+  #  grafana: dashboard
 
 - apiVersion: integreatly.org/v1alpha1
   kind: GrafanaDashboard
   metadata:
     labels:
       app: grafana
+      grafana: dashboard
     name: xraylab-images-dashboard
     namespace: {{ .Values.global.xraylab.namespace }}
   #  uid: lastimagesdashboard
