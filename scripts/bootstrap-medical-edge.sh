@@ -100,6 +100,14 @@ if [ $? == 0 ]; then
     echo "Done"
 fi
 
+log -n "Applying  grafana manifests ... "
+oc apply -f /tmp/grafana.yaml
+if [ $? == 0 ]; then
+    echo "Done"
+    rm -r /tmp/grafana.yaml
+fi
+
+
 log -n "Retrieving grafana service account secret ... "
 # Make sure we are in xraylab-1
 oc project xraylab-1 > /dev/null 2>&1
@@ -110,19 +118,24 @@ echo "done"
 #  One idea is to add the token to the ~/values-secret.yaml, run helm template and then oc apply the manifest.
 # For now we will sed ... ugh
 # This has to be excluded from the grafana chart and added to the secrets chart
+#
+# We have the prometheus manifest in the scripts directory for now
+# TODO: Figure out how we would do this with Argo
+#
+cat scripts/xraylab-grafana-prometheus-datasource.yaml > /tmp/prometheus.yaml
 log -n "Replacing BEARER-TOKEN ... "
-sed -i "s/BEARER-TOKEN/$SATOKEN/g" /tmp/grafana.yaml
+sed -i "s/BEARER-TOKEN/$SATOKEN/g" /tmp/prometheus.yaml
 if [ $? == 0 ]; then
     echo "done"
 else
     log "Error in trying to replace BEARER-TOKEN"
 fi
 
-log -n "Applying  grafana and prometheus  manifests ... "
-oc apply -f /tmp/grafana.yaml
+log -n "Applying prometheus manifests ... "
+oc apply -f /tmp/prometheus.yaml
 if [ $? == 0 ]; then
     echo "Done"
-    rm -r /tmp/grafana.yaml
+    rm -r /tmp/prometheus.yaml
 fi
 
 POD=""
