@@ -26,8 +26,8 @@ site:
 
   operatorgroupExcludes:
     - operatorhub
-    - knative-eventing
-    - knative-serving
+      #- knative-eventing
+      #- knative-serving
     - knative-kafka
 
   subscriptions:
