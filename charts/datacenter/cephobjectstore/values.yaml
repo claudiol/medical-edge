@@ -1,9 +1,9 @@
 ocs:
   namespace: openshift-storage
   mon:
-  requests:
-     cpu: 1
-      memory: 2Gi
+    requests:
+       cpu: 1
+       memory: 2Gi
   mds:
     requests:
       cpu: 3

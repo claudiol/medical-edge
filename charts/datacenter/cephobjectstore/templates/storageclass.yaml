@@ -20,12 +20,12 @@ spec:
         memory: {{ .Values.ocs.mgr.requests.memory }}
     noobaa-core:
       requests:
-        cpu: {{ .Values.ocs.noobacore.requests.cpu }}
-        memory: {{ .Values.ocs.noobacore.requests.memory }}
+        cpu: {{ .Values.ocs.noobaacore.requests.cpu }}
+        memory: {{ .Values.ocs.noobaacore.requests.memory }}
     noobaa-db:
       requests:
-        cpu: {{ .Values.ocs.noobadb.requests.cpu }}
-        memory: {{ .Values.ocs.noobadb.requests.memory }}
+        cpu: {{ .Values.ocs.noobaadb.requests.cpu }}
+        memory: {{ .Values.ocs.noobaadb.requests.memory }}
   storageDeviceSets:
   - name: ocs-deviceset
     count: 1
@@ -37,11 +37,11 @@ spec:
     placement: {}
     dataPVCTemplate:
       spec:
-        storageClassName: {{ .Values.ocs.pvc.storageClassName }}
+        storageClassName: {{ .Values.ocs.osd.pvc.storageClassName }}
         accessModes:
         - ReadWriteOnce
         volumeMode: Block
         resources:
           requests:
-            storage: {{ .Values.ocs.pvc.storage }}
+            storage: {{ .Values.ocs.osd.pvc.storage }}
     portable: true
