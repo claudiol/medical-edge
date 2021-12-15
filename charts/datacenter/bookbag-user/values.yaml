@@ -1,16 +1,21 @@
 #--------------------------------------
+# Set the GUID for the deployment
+#--------------------------------------
+guid: xraylab-1
+#--------------------------------------
+
+#--------------------------------------
 # Project Deployment Configuration
 #--------------------------------------
 deployment:
-  name: 
-  namespace:
-  description:
-  replicas:
-  image:
-  tag:
-  serviceAccountName:
+  name: bookbag
+  namespace: bookbag-xraylab-1
+  description: "Bookbag Project"
+  replicas: 1
+  image: image-registry.openshift-image-registry.svc:5000/bookbag/bookbag
+  tag: latest
   workshopVars:
-  consoleImage:
+  consoleImage: 
   consoleBranding: openshift
 #--------------------------------------
 
@@ -22,35 +27,35 @@ rbac:
 #--------------------------------------
 # image-puller rolebinding
 #--------------------------------------
-  - roleBindingName: bookbag-admin
-    bindingNamespace: {{ .Values.deployment.namespace }}
-    roleRefName: image-puller
-    serviceAccountName: xraylab-sa1
-    serviceAccountNamespace: sraylab1
+  - roleBindingName: "system:image-pullers"
+    bindingNamespace: bookbag-xraylab-1
+    roleRefName: system:image-puller
+    serviceAccountName: bookbag
+    serviceAccountNamespace: bookbag-xraylab-1 
 #--------------------------------------
 # Admin rolebinding
 #--------------------------------------
-  - bindingName: xraylab-admin
-    bindingNamespace: xraylab2
+  - bindingName: "admin-admin"
+    bindingNamespace: bookbag-xraylab-1
     role: admin
     kind: "User"
-    userName: xraylab-user
+    userName: "admin"
     apiGroup: rbac.authorization.k8s.io
 #--------------------------------------
-# XXXXXXXXXXXX rolebinding
+# admin rolebinding
 #--------------------------------------
-  - bindingName: xraylab-bind3
-    bindingNamespace: xraylab3
-    role: self-provisioner
-    serviceAccountName: xraylab-sa3
+  - bindingName: admin
+    bindingNamespace: bookbag-xraylab-1
+    role: admin
+    serviceAccountName: bookbag
 #--------------------------------------
 
 #--------------------------------------
 # Service Account Configuration
 #--------------------------------------
 serviceAccount:
-  name:
-  namespace: 
+  name: bookbag
+  namespace: bookbag-xraylab-1
 #--------------------------------------
 
 #--------------------------------------
