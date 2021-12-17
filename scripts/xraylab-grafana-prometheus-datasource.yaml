@@ -2,7 +2,7 @@ apiVersion: integreatly.org/v1alpha1
 kind: GrafanaDataSource
 metadata:
   name: prometheus-grafana-datasource
-  namespace: {{ .Values.global.xraylab.namespace }}
+  namespace: xraylab-1
 spec:
   datasources:
     - basicAuthUser: internal
@@ -12,7 +12,8 @@ spec:
       secureJsonData:
         httpHeaderValue1: 'Bearer BEARER-TOKEN'
       name: prometheus
-      url: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9091'
+        #url: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9091'
+      url: 'thanos-querier-openshift-monitoring.apps.claudiol-xray.blueprints.rhecoeng.com'
       jsonData:
         httpHeaderName1: 'Authorization'
         timeInterval: 5s

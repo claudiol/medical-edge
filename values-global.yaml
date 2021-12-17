@@ -1,5 +1,4 @@
 global:
-  #valuesDirectoryURL: https://github.com/dagger-refuse-cool/edge-gitops/raw/main/
   options:
     useCSV: False
     syncPolicy: Manual
@@ -16,7 +15,7 @@ global:
     xraydbhost: "127.0.0.1"
     xraydb: "xraylabdb"
     ocsstorage:
-      serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc"
+      serviceUrl: "http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local"
       externalUrl: "https://s3-rgw-openshift-storage.apps.claudiol-xray.blueprints.rhecoeng.com"
     ocs:
       namespace: openshift-storage
@@ -58,7 +57,7 @@ global:
           name: "knative-kafka"
           namespace: "knative-eventing"
       kafkaSource:
-        bootstrapserver: "xray-cluster-kafka-1.xray-cluster-kafka-brokers.xraylab-1.svc:9092"
+        bootstrapserver: "xray-cluster-kafka-bootstrap.xraylab-1.svc:9092"
         name: "xray-images"
         consumerGroup: "risk-assessment"
     kafka:
@@ -79,12 +78,12 @@ global:
         replicas: 1
         env:
           - name: KAFKA_BROKERCONNECT
-            value: "xray-cluster-kafka-1.xray-cluster-kafka-brokers.xraylab-1.svc:9092"
+            value: "xray-cluster-kafka-0.xray-cluster-kafka-brokers.xraylab-1.svc:9092"
           - name: JVM_OPTS
             value: "-Xms32M -Xmx64M"
           - name: SERVER_SERVLET_CONTEXTPATH
             value: "/"
     s3:
-      bucketSource: "https://s3.us-west-1.amazonaws.com/com.redhat.xray-source"
+      bucketSource: "https://s3.us-east-1.amazonaws.com/com.redhat.csds.guimou.xray-source"
       bucketBaseName: "xraylab-1"
 

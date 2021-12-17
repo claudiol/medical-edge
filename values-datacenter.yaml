@@ -17,6 +17,8 @@ site:
   - opendatahub
   - openshift-storage
   - xraylab-1
+  - bookbag
+  - bookbag-xraylab-1
   - knative-serving
 #  - knative-eventing #jrickard - testing sync status
   - staging
@@ -24,8 +26,8 @@ site:
 
   operatorgroupExcludes:
     - operatorhub
-    - knative-eventing
-    - knative-serving
+      #- knative-eventing
+      #- knative-serving
     - knative-kafka
 
   subscriptions:
