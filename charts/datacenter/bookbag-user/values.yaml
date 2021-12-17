@@ -13,7 +13,7 @@ deployment:
   description: "Bookbag Project"
   replicas: 1
 #Image created during bookbag-setup
-  image: image-registry.openshift-image-registry.svc:5000/bookbag/bookbag
+  image: image-registry.openshift-image-registry.svc:5000/bookbag/xraylab-bookbag
   tag: latest
 #Bookbag console
   consoleBranding: openshift
