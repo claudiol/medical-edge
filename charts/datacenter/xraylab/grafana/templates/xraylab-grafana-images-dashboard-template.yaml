@@ -5,8 +5,7 @@ metadata:
     app: grafana
     grafana: dashboard
   name: xraylab-images-dashboard
-  namespace: {{ .Values.global.xraylab.namespace }}
-#  uid: lastimagesdashboard
+  uid: lastimagesdashboard
 spec:
   json: |
     {
@@ -169,7 +168,6 @@ spec:
       "uid": "lastimagesdashboard",
       "version": 6
     }
-  #name: xraylab-images-dashboard.json
   plugins:
     - name: ryantxu-ajax-panel
       version: 0.0.7-dev
