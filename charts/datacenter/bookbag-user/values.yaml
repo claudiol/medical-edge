@@ -12,11 +12,15 @@ deployment:
   namespace: bookbag-xraylab-1
   description: "Bookbag Project"
   replicas: 1
+#Image created during bookbag-setup
   image: image-registry.openshift-image-registry.svc:5000/bookbag/bookbag
   tag: latest
-  workshopVars:
-  consoleImage: 
+#Bookbag console
   consoleBranding: openshift
+#OpenShift console image
+#oc get deploy console -n openshift-console -o jsonpath='{$.spec.template.spec.containers[0].image}'
+  consoleImage: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:e86a75b8ec69f9ee4c3062a94a714d40b164f28b307f32ff446ccce0462e76d2
+
 #--------------------------------------
 
 
@@ -91,20 +95,23 @@ pvc:
   accessModes: "ReadWriteOnce"
 #--------------------------------------
 
-#Deployment configuration
-#deployment:
-#  name: bookbag
-#  namespace: 
-#    description: "BookBag project"
-#  replicas: 1
-#  image: image-registry.openshift-image-registry.svc:5000/bookbag/bookbag
-#  tag: latest
-#  serviceAccountName: bookbag
+
+
+
+
+
+#--------------------------------------
+# removed from deployment section for
+# now.
+#--------------------------------------
 #  workshopVars:
-#    {"guid": "xraylab-1",
-#             "web_console_url": "https://console-openshift-console.apps.cluster-5mhnr.5mhnr.sandbox996.opentlc.com",
-#             "api_url": "https://api.cluster-5mhnr.5mhnr.sandbox996.opentlc.com:6443",
-#             "login_command": "oc login -u xraylab-1 https://api.cluster-5mhnr.5mhnr.sandbox996.opentlc.com:6443",
-#             "rgw_url_external": "https://s3-rgw-openshift-storage.apps.cluster-5mhnr.5mhnr.sandbox996.opentlc.com",
-#             "S3_access_key": "XXXXXXXXXXXXXXXXXXXX", "S3_secret_key": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-#             "ocp_username": "xraylab-1"}
+#    web_console_url: 
+#    api_url:
+#
+#    login_command:
+#    rgw_url_external:
+#    S3_access_key:
+#    S3_secret_key:
+#    ocp_username: xraylab-1
+
+#--------------------------------------
