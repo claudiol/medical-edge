@@ -127,7 +127,6 @@ items:
                       "1h",
                       "none"
                     ],
-                    #"type": "time"
                     "type": "timestamp"
                   }
                 ],
