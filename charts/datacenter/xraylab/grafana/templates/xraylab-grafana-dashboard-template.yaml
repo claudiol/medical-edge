@@ -739,8 +739,7 @@ spec:
               ],
               "metricColumn": "label",
               "rawQuery": true,
-              "rawSql": "SELECT\n  $__timeGroupAlias(time,$__interval),\n  label AS metric,\n  count(label)\nFROM images_processed\nWHERE\n  $__timeFilter(time)\n  and\n
-bel != ''\nGROUP BY 1,2\nORDER BY $__timeGroup(time,$__interval)",
+              "rawSql": "SELECT\n  $__timeGroupAlias(time,$__interval),\n  label AS metric,\n  count(label)\nFROM images_processed\nWHERE\n  $__timeFilter(time)\n  and\n label != ''\nGROUP BY 1,2\nORDER BY $__timeGroup(time,$__interval)",
               "refId": "A",
               "select": [
                 [
