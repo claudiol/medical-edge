@@ -1247,7 +1247,6 @@ bel != ''\nGROUP BY 1,2\nORDER BY $__timeGroup(time,$__interval)",
       "uid": "hakbeh9Wz",
       "version": 4
     }
-  name: xraylab-dashboard.json
   plugins:
   - name: larona-epict-panel
     version: 1.2.2
