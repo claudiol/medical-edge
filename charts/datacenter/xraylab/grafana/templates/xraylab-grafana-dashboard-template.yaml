@@ -542,7 +542,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(pod:container_cpu_usage:sum{namespace=\"$namespace\"})",
+              "expr": "sum(pod:container_cpu_usage:sum{namespace='{{ .Values.global.xraylab.namespace }}'})",
               "format": "time_series",
               "instant": false,
               "intervalFactor": 1,
@@ -552,7 +552,7 @@ spec:
               "step": 10
             },
             {
-              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\"})",
+              "expr": "sum(container_memory_working_set_bytes{namespace='{{ .Values.global.xraylab.namespace }}'})",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "RAM",
