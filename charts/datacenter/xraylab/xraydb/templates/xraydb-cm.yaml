@@ -30,6 +30,7 @@ data:
     --
     -- Table structure for table `images_uploaded`
     --
+
     CREATE TABLE images_uploaded(time TIMESTAMP, name VARCHAR(255));
 
     DROP TABLE IF EXISTS `images_processed`;
@@ -37,6 +38,7 @@ data:
     --
     -- Table structure for table `images_processed`
     --
+
     CREATE TABLE images_processed(time TIMESTAMP, name VARCHAR(255), model VARCHAR(10), label VARCHAR(20));
 
     DROP TABLE IF EXISTS `images_anonymized`;
@@ -50,7 +52,8 @@ data:
     --
     -- Now we grant admin priviliges
     --
+
     GRANT ALL PRIVILEGES ON xraylabdb.* TO 'admin'@'%';
     CREATE USER 'xraylab' @'%' IDENTIFIED BY 'xraylab';
-    GRANT ALL PRIVILEGES ON xraylabdb.* TO 'xraylab'@'%';
+    GRANT ALL PRIVILEGES ON *.* TO 'xraylab'@'%';
     FLUSH PRIVILEGES;
