@@ -127,12 +127,13 @@ items:
                       "1h",
                       "none"
                     ],
-                    "type": "time"
+                    #"type": "time"
+                    "type": "timestamp"
                   }
                 ],
                 "metricColumn": "none",
                 "rawQuery": true,
-                "rawSql": "SELECT time as 'time_series',count(name)-1 AS \"images_uploaded\"\nFROM images_uploaded",
+                "rawSql": "SELECT time,count(name)-1 AS \"images_uploaded\"\nFROM images_uploaded",
                 "refId": "A",
                 "select": [
                   [
@@ -166,7 +167,7 @@ items:
                 "group": [],
                 "metricColumn": "none",
                 "rawQuery": true,
-                "rawSql": "SELECT time as 'time_series',count(name)-1 AS \"images_processed\"\nFROM images_processed",
+                "rawSql": "SELECT time,count(name)-1 AS \"images_processed\"\nFROM images_processed",
                 "refId": "B",
                 "select": [
                   [
@@ -194,7 +195,7 @@ items:
                 "group": [],
                 "metricColumn": "none",
                 "rawQuery": true,
-                "rawSql": "SELECT time as 'time_series',count(name)-1 AS \"images_anonymized\"\nFROM images_anonymized",
+                "rawSql": "SELECT time,count(name)-1 AS \"images_anonymized\"\nFROM images_anonymized",
                 "refId": "C",
                 "select": [
                   [
