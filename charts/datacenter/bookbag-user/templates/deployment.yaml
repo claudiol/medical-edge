@@ -56,8 +56,8 @@ spec:
         - name: OC_VERSION
         - name: ODO_VERSION
         - name: KUBECTL_VERSION
-        - name: WORKSHOP_VARS
-          value: {{ .Values.deployment.workshopVars  | toJson | quote }}
+        #jrickard- name: WORKSHOP_VARS
+        #jrickard  value: {{ .Values.deployment.workshopVars  | toJson | quote }}
         ports:
         - containerPort: {{ .Values.service.port.ports }}
           protocol: {{ .Values.service.port.protocol }}
