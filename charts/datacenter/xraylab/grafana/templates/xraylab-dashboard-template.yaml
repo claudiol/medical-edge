@@ -791,7 +791,7 @@ spec:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(pod:container_cpu_usage:sum{namespace=\"{{ .Values.global.xraylab.namespace }}\"})",
+              "expr": "sum(pod:container_cpu_usage:sum{namespace=\"$namespace\"})",
               "format": "time_series",
               "instant": false,
               "intervalFactor": 1,
@@ -801,7 +801,7 @@ spec:
               "step": 10
             },
             {
-              "expr": "sum(container_memory_working_set_bytes{namespace=\"{{ .Values.global.xraylab.namespace }}\"})",
+              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "RAM",
@@ -912,7 +912,7 @@ spec:
           "pluginVersion": "7.1.1",
           "targets": [
             {
-              "expr": "count(kube_pod_info{pod=~\"risk-assessment.*\",namespace=~\"{{ .Values.global.xraylab.namespace }}\"})",
+              "expr": "count(kube_pod_info{pod=~\"risk-assessment.*\",namespace=~\"$namespace\"})",
               "format": "time_series",
               "instant": true,
               "interval": "",
@@ -1263,7 +1263,7 @@ spec:
           ],
           "targets": [
             {
-              "expr": "kube_deployment_status_replicas{deployment=~\"risk-assessment.*\",namespace=~\"{{ .Values.global.xraylab.namespace }}\"}",
+              "expr": "kube_deployment_status_replicas{deployment=~\"risk-assessment.*\",namespace=~\"$namespace }}\"}",
               "format": "time_series",
               "instant": true,
               "interval": "",
