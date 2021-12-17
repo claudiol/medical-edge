@@ -365,7 +365,7 @@ items:
             "timeShift": null,
             "title": "Last uploaded image",
             "type": "ryantxu-ajax-panel",
-            "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}",
+            "url": "{{ .Values.xraylab.imageServer }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}",
             "withCredentials": false
           },
           {
@@ -737,7 +737,7 @@ items:
             "timeShift": null,
             "title": "Last processed image",
             "type": "ryantxu-ajax-panel",
-            "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-processed",
+            "url": "{{ .Values.xraylab.imageServer }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}-processed",
             "withCredentials": false
           },
           {
@@ -1183,7 +1183,7 @@ items:
             "timeShift": null,
             "title": "Last anonymized image",
             "type": "ryantxu-ajax-panel",
-            "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-anonymized",
+            "url": "{{ .Values.xraylab.imageServer }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}-anonymized",
             "withCredentials": false
           },
           {
@@ -1578,7 +1578,7 @@ items:
             "timeShift": null,
             "title": "Last uploaded image",
             "type": "ryantxu-ajax-panel",
-            "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}",
+            "url": "{{ .Values.xraylab.imageServer }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}",
             "withCredentials": false
           },
           {
@@ -1608,7 +1608,7 @@ items:
             "timeShift": null,
             "title": "Last processed image",
             "type": "ryantxu-ajax-panel",
-            "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-processed",
+            "url": "{{ .Values.xraylab.imageServer }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}-processed",
             "withCredentials": false
           },
           {
@@ -1638,7 +1638,7 @@ items:
             "timeShift": null,
             "title": "Last anonymized image",
             "type": "ryantxu-ajax-panel",
-            "url": "{{ .Values.xraylab.imageServer }}/last_image_big/{{ .Values.xraylab.bucketBaseName }}-anonymized",
+            "url": "{{ .Values.xraylab.imageServer }}/last_image_small/{{ .Values.xraylab.bucketBaseName }}-anonymized",
             "withCredentials": false
           }
         ],
