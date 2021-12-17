@@ -1087,8 +1087,7 @@ spec:
               ],
               "metricColumn": "model",
               "rawQuery": true,
-              "rawSql": "SELECT\n  $__timeGroupAlias(time,$__interval),\n  model AS metric,\n  count(model) AS \"model\"\nFROM images_processed\nWHERE\n  $__timeFilter(tim
-\n  and\n  model != ''\nGROUP BY 1,2\nORDER BY $__timeGroup(time,$__interval)",
+              "rawSql": "SELECT\n  $__timeGroupAlias(time,$__interval),\n  model AS metric,\n  count(model) AS \"model\"\nFROM images_processed\nWHERE\n  $__timeFilter(time \n  and\n  model != ''\nGROUP BY 1,2\nORDER BY $__timeGroup(time,$__interval)",
               "refId": "A",
               "select": [
                 [
