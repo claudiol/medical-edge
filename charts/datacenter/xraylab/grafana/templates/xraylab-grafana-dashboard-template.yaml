@@ -662,7 +662,7 @@ spec:
           "pluginVersion": "7.1.1",
           "targets": [
             {
-              "expr": "count(kube_pod_info{pod=~\"risk-assessment.*\",namespace=~\"$namespace\"})",
+              "expr": "count(kube_pod_info{pod=~\"risk-assessment.*\",namespace=~'{{ .Values.global.xraylab.namespace }}'})",
               "format": "time_series",
               "instant": true,
               "interval": "",
@@ -1013,7 +1013,7 @@ spec:
           ],
           "targets": [
             {
-              "expr": "kube_deployment_status_replicas{deployment=~\"risk-assessment.*\",namespace=~\"$namespace\"}",
+              "expr": "kube_deployment_status_replicas{deployment=~\"risk-assessment.*\",namespace=~'{{ .Values.global.xraylab.namespace }}'}",
               "format": "time_series",
               "instant": true,
               "interval": "",
@@ -1191,8 +1191,8 @@ spec:
           },
           {
             "current": {
-              "text": "${namespace}",
-              "value": "${namespace}"
+              "text": "{{ .Values.global.xraylab.namespace }}",
+              "value": "{{ .Values.global.xraylab.namespace }}"
             },
             "hide": 2,
             "label": "Namespace",
@@ -1200,11 +1200,11 @@ spec:
             "options": [
               {
                 "selected": true,
-                "text": "${namespace}",
-                "value": "${namespace}"
+                "text": "{{ .Values.global.xraylab.namespace }}",
+                "value": "{{ .Values.global.xraylab.namespace }}"
               }
             ],
-            "query": "${namespace}",
+            "query": "{{ .Values.global.xraylab.namespace }}",
             "skipUrlSync": false,
             "type": "constant"
           }
