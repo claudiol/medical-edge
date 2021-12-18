@@ -52,7 +52,7 @@ data:
     --
     -- Now we grant admin priviliges
     -- CREATE USER IF NOT EXISTS 'xraylab' @'%' IDENTIFIED BY 'xraylab';
+    -- GRANT ALL PRIVILEGES ON *.* TO 'xraylab'@'%';
 
     GRANT ALL PRIVILEGES ON xraylabdb.* TO 'admin'@'%';
-    GRANT ALL PRIVILEGES ON *.* TO 'xraylab'@'%';
     FLUSH PRIVILEGES;
