@@ -5,7 +5,6 @@ metadata:
     app: grafana
     grafana: dashboard
   name: xraylab-dashboard
-  uid: xraylabdashboard
 spec:
   json: |
     {
