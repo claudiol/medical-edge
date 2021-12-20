@@ -1,7 +1,7 @@
 apiVersion: ocs.openshift.io/v1
 kind: OCSInitialization
 metadata:
-  name: ocsinit
-  namespace: openshift-storage
+  name: {{ .Values.toolbox.name }}
+  namespace: {{ .Values.ocs.namespace }}
 spec:
-  enableCephTools: true
+  enableCephTools: {{ .Values.toolbox.enableCephTools }}
