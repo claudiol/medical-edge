@@ -17,5 +17,4 @@ bookbag:
     name: bookbag
     namespace: bookbag
     display: Bookbag XRay Lab
-    ocp_username: ocpuser
-    
+    ocp_username: system:admin

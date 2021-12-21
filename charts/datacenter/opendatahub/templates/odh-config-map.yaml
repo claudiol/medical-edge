@@ -2,6 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: additional-profiles
+  namespace: opendatahub
   labels:
     jupyterhub: singleuser-profiles
 data:
@@ -10,12 +11,4 @@ data:
     - name: preload repos
       env:
         - name: JUPYTER_PRELOAD_REPOS
-          value: https://github.com/guimou/xraylab_notebooks.git
-    - name: globals
-      resources:
-        requests:
-          memory: 500m
-          cpu: 500m
-        limits:
-          memory: 1Gi
-          cpu: 1
+          value: https://github.com/red-hat-data-services/xraylab_notebooks.git
