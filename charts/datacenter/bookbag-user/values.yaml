@@ -53,14 +53,30 @@ rbac:
     role: admin
     serviceAccountName: bookbag
 #--------------------------------------
-# view rolebinding for xraylab-1 
-# in openshift-storage namespace
+# FROM per_user_workload_task #######
+# view rolebinding for openshift-storage
+# admin rolebinding for bookbag SA and 
+# xraylab-1 user in xraylab-1 project
 #--------------------------------------
   - bindingName: xraylab-1-view
     bindingNamespace: openshift-storage
     role: view
     kind: "User"
     userName: xraylab-1
+
+  - bindingName: xraylab-1-admin
+    bindingNamespace: xraylab-1
+    role: admin
+    kind: "User"
+    userName: xraylab-1
+
+# This rolebinding gives the bookbag SA admin privileges to 
+# the xraylab-1 namespace.
+  - bindingName: system:serviceaccount:bookbag-xraylab-1:bookbag-admin
+    bindingNamespace: xraylab-1
+    role: admin
+    kind: "User"
+    name: system:serviceaccount:bookbag-xraylab-1:bookbag
 #--------------------------------------
 
 #--------------------------------------
