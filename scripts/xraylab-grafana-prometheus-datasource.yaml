@@ -8,15 +8,17 @@ spec:
     - basicAuthUser: internal
       access: proxy
       editable: true
-      isDefault: true
+      isDefault: false
       secureJsonData:
         httpHeaderValue1: 'Bearer BEARER-TOKEN'
       name: prometheus
-        #url: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9091'
-      url: 'thanos-querier-openshift-monitoring.apps.claudiol-xray.blueprints.rhecoeng.com'
+      url: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9091'
+        #url: 'http://thanos-querier-openshift-monitoring.apps.claudiol-xray.blueprints.rhecoeng.com:80'
+      #url: 'https://thanos-querier-openshift-monitoring.svc.cluster.local:9091'
       jsonData:
         httpHeaderName1: 'Authorization'
         timeInterval: 5s
         tlsSkipVerify: true
       type: prometheus
   name: grafana-prometheus-datasource.yaml
+  status: {}

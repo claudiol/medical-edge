@@ -111,7 +111,7 @@ fi
 log -n "Retrieving grafana service account secret ... "
 # Make sure we are in xraylab-1
 oc project xraylab-1 > /dev/null 2>&1
-SATOKEN=$(oc get secret $(oc get secret | grep grafana-serviceaccount-token | tail -1 | awk '{print $1}') -o json | jq -r '.data.token')
+SATOKEN=$(oc get secret $(oc get secret | grep grafana-serviceaccount-token | head -n 1 | awk '{print $1}') -o json | jq -r '.data.token')
 echo "done"
 #
 #  Still not sure how we will be able to apply this token to the grafana/prometheus-datasource.yaml manifest
@@ -143,12 +143,12 @@ COUNTER=0
 while ( true )
 do
     log -n "Make sure that rook-ceph-tools pod is running ... "
-    oc get pods -n openshift-storage | grep rook-ceph-tools | grep Running > /dev/nul 2>&1
+    oc get pods -n openshift-storage | grep rook-ceph-tools | grep Running > /dev/null 2>&1
 
     if [ $? != 0 ]; then
 	let COUNTER++
 	sleep 3
-	if [ $COUNTER == 50 ]; then
+	if [ $COUNTER == 1000 ]; then
 	    break
 	fi
 	continue
@@ -203,7 +203,7 @@ EOF
 	oc apply -f /tmp/s3-secret-bck.yaml
 	if [ $? == 0 ]; then
 	    echo "Done"
-	    rm -f /tmp/s3-secret-bck.yaml
+	    #rm -f /tmp/s3-secret-bck.yaml
 	    break
 	else
 	    log "Something went wrong applying s3-secret manifest"
