@@ -53,6 +53,15 @@ rbac:
     role: admin
     serviceAccountName: bookbag
 #--------------------------------------
+# view rolebinding for xraylab-1 
+# in openshift-storage namespace
+#--------------------------------------
+  - bindingName: xraylab-1-view
+    bindingNamespace: openshift-storage
+    role: view
+    kind: "User"
+    userName: xraylab-1
+#--------------------------------------
 
 #--------------------------------------
 # Service Account Configuration
