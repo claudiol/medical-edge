@@ -97,9 +97,6 @@ spec:
               name: xraylabdb-init
               subPath: import.sql
             - name: xraylabdb-init
-              mountPath: /opt/app-root/src/mysql-init/90-init-data.sh
-              subPath: 90-init-database.sh
-            - name: xraylabdb-init
               mountPath: /opt/app-root/src/mysql-data/schema.sql
               subPath: schema.sql
           terminationMessagePolicy: File
