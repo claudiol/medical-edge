@@ -22,12 +22,12 @@ data:
     if ! [ -v MYSQL_RUNNING_AS_SLAVE ] && $MYSQL_DATADIR_FIRST_INIT ; then
         init_database
     fi
+
   import.sql: >-
     INSERT INTO `images_uploaded` (`time`,`name`) SELECT CURRENT_TIMESTAMP(), ''; 
-    
     INSERT INTO `images_processed` (`time`,`name`,`model`,`label`) SELECT CURRENT_TIMESTAMP(), '', '',''; 
-    
     INSERT INTO `images_anonymized` (`time`,`name`) SELECT CURRENT_TIMESTAMP(), '';
+
   schema.sql: >-
     DROP TABLE IF EXISTS `images_uploaded`; 
     DROP TABLE IF EXISTS `images_processed`; 
