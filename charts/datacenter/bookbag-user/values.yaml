@@ -29,29 +29,31 @@ deployment:
 #--------------------------------------
 rbac:
 #--------------------------------------
-# image-puller rolebinding
+# FROM: BOOKBAG_USER project
 #--------------------------------------
-  - bindingName: "system:image-pullers"
+# bookbag-admin rolebinding
+#--------------------------------------
+  - bindingName: bookbag-admin
     bindingNamespace: bookbag-xraylab-1
-    roleRefName: system:image-puller
+    roleRefName: admin
     serviceAccountName: bookbag
-    serviceAccountNamespace: bookbag-xraylab-1 
 #--------------------------------------
-# Admin rolebinding
+# bookbag system:admin-admin rolebinding
 #--------------------------------------
-  - bindingName: "admin-admin"
+  - bindingName: system:admin-admin
     bindingNamespace: bookbag-xraylab-1
     roleRefName: admin
     kind: "User"
-    userName: "admin"
+    userName: system:admin
     apiGroup: rbac.authorization.k8s.io
 #--------------------------------------
-# admin rolebinding
+# bookbag image-puller rolebinding
 #--------------------------------------
-  - bindingName: admin
-    bindingNamespace: bookbag-xraylab-1
-    roleRefName: admin
+  - bindingName: bookbag-bookbag-xraylab-1
+    bindingNamespace: bookbag
+    roleRefName: system:image-puller
     serviceAccountName: bookbag
+    serviceAccountNamespace: bookbag-xraylab-1 
 #--------------------------------------
 # FROM per_user_workload_task #######
 # view rolebinding for openshift-storage
