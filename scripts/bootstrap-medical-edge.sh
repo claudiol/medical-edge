@@ -57,6 +57,12 @@ if [ $? == 0 ]; then
     echo "done"
 fi
 
+log -n "Setting up OCS ... "
+helm template OCSTemplate charts/datacenter/cephobjectstore --values values-global.yaml > /dev/null 2>&1
+if [ $? == 0 ]; then
+    echo "done"
+fi
+
 #
 # bookbag Service Account in the bookbag-xraylab-1
 #
@@ -86,7 +92,8 @@ do
 done
 
 log -n "Adding cluster role to grafana-serviceaccount ... "
-oc adm policy add-cluster-role-to-user cluster-monitoring-view -z grafana-serviceaccount -n xraylab-1 > /dev/null 2>&1
+oc adm policy add-cluster-role-to-user cluster-admin -z grafana-serviceaccount -n xraylab-1 > /dev/null 2>&1
+#oc adm policy add-cluster-role-to-user cluster-monitoring-view -z grafana-serviceaccount -n xraylab-1 > /dev/null 2>&1
 if [ $? == 0 ]; then
     echo "done"
 fi

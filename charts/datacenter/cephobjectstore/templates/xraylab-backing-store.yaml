@@ -13,7 +13,7 @@ spec:
     secret:
       name: noobaa-aws-cloud-creds-secret
       namespace: openshift-storage
-    targetBucket: nb.1639666926505.apps.claudiol-xray.blueprints.rhecoeng.com
+    targetBucket: com.redhat.claudiol.xray-source
   type: aws-s3
 status: {}
 
