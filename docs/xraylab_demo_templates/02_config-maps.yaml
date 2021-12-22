@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-point
+  namespace: xraylab-1
+data:
+  url: http://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc.cluster.local
+  url-external: https://s3-rgw-openshift-storage.apps.jrickard-xray.blueprints.rhecoeng.com
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-host
+  namespace: xraylab-1
+data:
+  url: xraylabdb
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: buckets-config
+  namespace: xraylab-1
+data:
+  bucket-source: 'https://s3.us-east-1.amazonaws.com/com.redhat.csds.guimou.xray-source'
+  bucket-base-name: xraylab-1
