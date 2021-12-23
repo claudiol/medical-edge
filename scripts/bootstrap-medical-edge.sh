@@ -185,6 +185,40 @@ done
 
 while ( true )
 do
+    log -n "Checking that the namespace [ knative-eventing ] exists ..."
+    oc get namespace knative-eventing > /dev/null 2>&1
+    if [ $? == 0 ]; then
+	echo "done"
+	break
+    fi
+done
+
+log -n "Applying Knative manifests ... "
+cd charts/datacenter/xraylab/knative
+helm template . --values ../../../../values-global.yaml  | oc apply -f - > /dev/null 2>&1
+if [ $? == 0 ]; then
+    echo "done"
+fi
+cd -
+
+log -n "Applying Kafka manifests ... "
+cd charts/datacenter/xraylab/kafka
+helm template . --values ../../../../values-global.yaml  | oc apply -f - > /dev/null 2>&1
+if [ $? == 0 ]; then
+    echo "done"
+fi
+cd -
+
+log -n "Applying KafkaSource manifests ... "
+cd charts/datacenter/xraylab/kafkasource
+helm template . --values ../../../../values-global.yaml  | oc apply -f - > /dev/null 2>&1
+if [ $? == 0 ]; then
+    echo "done"
+fi
+cd -
+
+while ( true )
+do
     log -n "Creating S3 user account ... "
     oc exec -n openshift-storage $POD -- radosgw-admin user create --uid="xraylab-1" --display-name="xraylab-1 user" > /dev/null 2>&1
     if [ $? != 0 ]; then
