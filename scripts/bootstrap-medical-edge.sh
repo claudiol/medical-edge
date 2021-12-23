@@ -17,7 +17,7 @@ function log {
 # Bootstrap script for Medical-Edge
 ADMIN=$(oc whoami | awk '{print $1}')
 if [ "$ADMIN" != "admin" ] || [ "$ADMIN" != "system:admin" ]; then
-    log "You must be kubeadmin to run this script"
+    echo "You must be kubeadmin to run this script"
 fi
 
 #
@@ -57,12 +57,6 @@ if [ $? == 0 ]; then
     echo "done"
 fi
 
-log -n "Setting up OCS ... "
-helm template OCSTemplate charts/datacenter/cephobjectstore --values values-global.yaml > /dev/null 2>&1
-if [ $? == 0 ]; then
-    echo "done"
-fi
-
 #
 # bookbag Service Account in the bookbag-xraylab-1
 #
@@ -78,6 +72,13 @@ if [ $? == 0 ]; then
     echo "done"
 fi
 
+log -n "Running Bookbag Helm Chart ... "
+
+helm template Bookbag charts/datacenter/bookbag-user > /dev/null 2>&1
+
+if [ $? == 0 ]; then
+    echo "done"
+fi
 #
 # Check for the Grafana Service Account to be created
 #
@@ -102,10 +103,12 @@ fi
 # Apply prometheus Manifest
 #
 log -n "Generating grafana templates manifests ... "
-helm template charts/datacenter/xraylab/grafana -f values-global.yaml > /tmp/grafana.yaml
+cd charts/datacenter/xraylab/grafana
+helm template . -f ../../../../values-global.yaml > /tmp/grafana.yaml
 if [ $? == 0 ]; then
     echo "Done"
 fi
+cd -
 
 log -n "Applying  grafana manifests ... "
 oc apply -f /tmp/grafana.yaml
@@ -118,7 +121,7 @@ fi
 log -n "Retrieving grafana service account secret ... "
 # Make sure we are in xraylab-1
 oc project xraylab-1 > /dev/null 2>&1
-SATOKEN=$(oc get secret $(oc get secret | grep grafana-serviceaccount-token | head -n 1 | awk '{print $1}') -o json | jq -r '.data.token')
+SATOKEN=$(oc serviceaccounts get-token grafana-serviceaccount)
 echo "done"
 #
 #  Still not sure how we will be able to apply this token to the grafana/prometheus-datasource.yaml manifest
@@ -144,6 +147,14 @@ if [ $? == 0 ]; then
     echo "Done"
     rm -r /tmp/prometheus.yaml
 fi
+
+log -n "Setting up OCS ... "
+cd charts/datacenter/cephobjectstore
+helm template OCSTemplate . | oc apply -f - > /dev/null 2>&1
+if [ $? == 0 ]; then
+    echo "done"
+fi
+cd -
 
 POD=""
 COUNTER=0
@@ -190,8 +201,8 @@ do
     # Parse the response using the jq tool
     #
     USER=$(echo -n $RESPONSE | jq -j '.keys[0].user')
-    S3_ACCESS_KEY=$(echo -n $RESPONSE | jq -j '.keys[0].access_key' | base64 -w 0 )
-    S3_SECRET_KEY=$(echo -n $RESPONSE | jq -j '.keys[0].secret_key' | base64 -w 0 )
+    S3_ACCESS_KEY=$(echo -n $RESPONSE | jq -j '.keys[0].access_key' | base64 -w0 )
+    S3_SECRET_KEY=$(echo -n $RESPONSE | jq -j '.keys[0].secret_key' | base64 -w0 )
 
     if [ ! -z $S3_ACCESS_KEY ] && [ ! -x $S3_SECRET_KEY ]; then
 	cat <<EOF > /tmp/s3-secret-bck.yaml
@@ -217,4 +228,5 @@ EOF
 	fi
     fi
 done
+
 

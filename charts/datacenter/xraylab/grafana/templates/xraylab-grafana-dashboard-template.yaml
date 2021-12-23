@@ -3,7 +3,6 @@ kind: GrafanaDashboard
 metadata:
   labels:
     app: grafana
-    grafana: dashboard
   name: xraylab-dashboard
 spec:
   json: |
@@ -1244,6 +1243,7 @@ spec:
       "uid": "hakbeh9Wz",
       "version": 4
     }
+  name: xraylab-dashboard.json
   plugins:
   - name: larona-epict-panel
     version: 1.2.2
